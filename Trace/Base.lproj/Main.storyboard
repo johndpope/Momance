@@ -44,7 +44,7 @@
                                     <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="QiN-2q-3fb" kind="show" id="QKd-y4-GFP"/>
+                                    <segue destination="QiN-2q-3fb" kind="show" id="Z1Z-NK-fLo"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vsX-bD-Z1g">
@@ -102,14 +102,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTS-qX-wqC">
-                                <rect key="frame" x="0.0" y="0.0" width="475" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="PKE-3c-CaR">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="PKE-3c-CaR">
                                 <rect key="frame" x="223" y="318.5" width="254" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Ao0-N0-4H6"/>
                                     <constraint firstAttribute="width" constant="250" id="eDM-E6-vkR"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="adjustDepth:" destination="QiN-2q-3fb" eventType="valueChanged" id="fcg-rc-3Vi"/>
+                                </connections>
                             </slider>
                             <textField opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="25" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hUc-bz-pvy">
                                 <rect key="frame" x="80" y="311" width="215" height="46"/>
@@ -128,7 +131,7 @@
                             <constraint firstItem="PKE-3c-CaR" firstAttribute="centerY" secondItem="hxf-Vw-qWi" secondAttribute="centerY" id="LPr-EQ-hvE"/>
                             <constraint firstItem="hUc-bz-pvy" firstAttribute="centerY" secondItem="hxf-Vw-qWi" secondAttribute="centerY" id="Q14-VY-voU"/>
                             <constraint firstItem="WTS-qX-wqC" firstAttribute="top" secondItem="hxf-Vw-qWi" secondAttribute="top" id="bc5-Nu-jPN"/>
-                            <constraint firstItem="PKE-3c-CaR" firstAttribute="trailing" secondItem="WTS-qX-wqC" secondAttribute="trailing" id="dMZ-ax-ptD"/>
+                            <constraint firstItem="PKE-3c-CaR" firstAttribute="trailing" secondItem="WTS-qX-wqC" secondAttribute="trailing" constant="100" id="dMZ-ax-ptD"/>
                             <constraint firstItem="hUc-bz-pvy" firstAttribute="leading" secondItem="JFt-oG-N2w" secondAttribute="leading" constant="80" id="e6x-op-fvV"/>
                             <constraint firstItem="hUc-bz-pvy" firstAttribute="centerX" secondItem="hxf-Vw-qWi" secondAttribute="centerX" id="vl3-1d-BTH"/>
                         </constraints>

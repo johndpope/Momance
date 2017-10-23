@@ -10,14 +10,8 @@ import Foundation
 
 class UploadTextModel {
     
-    func setUploadContents() {
-        
-        
-    }
-    
-    /// TODO: 위에 빈 파라미터 메소드 없애고 이거 구현할것.
-    func setUploadContents(x: Float, y: Float, z: Float, text: String) {  // TextVO를 세팅하는 메소드
-        
+    func setUploadContents(x: Float, y: Float, z: Float, text: String, list: inout [TextVO]) {  // TextVO를 세팅하는 메소드
+        list.append(TextVO(x: x, y: y, z: z, textContent: text))
     }
     
     func sendDataToServer() {

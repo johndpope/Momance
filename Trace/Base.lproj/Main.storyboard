@@ -36,10 +36,12 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RcE-YV-ohd">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nko-yB-1lW">
-                                <rect key="frame" x="58" y="569" width="127" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nko-yB-1lW" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
+                                <rect key="frame" x="50" y="574" width="127" height="43"/>
                                 <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="Abf-4G-7Ch"/>
+                                </constraints>
                                 <state key="normal" title="TEXT">
                                     <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -47,10 +49,12 @@
                                     <segue destination="QiN-2q-3fb" kind="show" id="Z1Z-NK-fLo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vsX-bD-Z1g">
-                                <rect key="frame" x="207" y="569" width="127" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vsX-bD-Z1g" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
+                                <rect key="frame" x="198" y="574" width="127" height="43"/>
                                 <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="cRk-CO-bME"/>
+                                </constraints>
                                 <state key="normal" title="CAMERA">
                                     <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -62,13 +66,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="trailing" secondItem="CIZ-tT-yAJ" secondAttribute="trailing" id="36m-sq-Q0s"/>
+                            <constraint firstItem="vsX-bD-Z1g" firstAttribute="leading" secondItem="nko-yB-1lW" secondAttribute="trailing" constant="21" id="50d-kX-lCY"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="top" secondItem="bk5-i8-eji" secondAttribute="top" id="9sd-yk-1kI"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="leading" secondItem="CIZ-tT-yAJ" secondAttribute="leading" id="L1n-SB-cag"/>
+                            <constraint firstItem="CIZ-tT-yAJ" firstAttribute="bottom" secondItem="vsX-bD-Z1g" secondAttribute="bottom" constant="50" id="LFO-HK-9XS"/>
+                            <constraint firstItem="nko-yB-1lW" firstAttribute="leading" secondItem="CIZ-tT-yAJ" secondAttribute="leading" constant="50" id="UKK-Lc-IV8"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="bottom" secondItem="CIZ-tT-yAJ" secondAttribute="bottom" id="dya-Bu-eKO"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="top" secondItem="bk5-i8-eji" secondAttribute="top" id="ig8-bN-grn"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="leading" secondItem="CIZ-tT-yAJ" secondAttribute="leading" id="ixI-3d-WGy"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="bottom" secondItem="CIZ-tT-yAJ" secondAttribute="bottom" id="k6Y-MA-DER"/>
+                            <constraint firstItem="CIZ-tT-yAJ" firstAttribute="bottom" secondItem="nko-yB-1lW" secondAttribute="bottom" constant="50" id="wID-Bt-8kp"/>
+                            <constraint firstItem="vsX-bD-Z1g" firstAttribute="width" secondItem="nko-yB-1lW" secondAttribute="width" id="yDg-ao-n14"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="trailing" secondItem="CIZ-tT-yAJ" secondAttribute="trailing" id="yMT-Zq-4bR"/>
+                            <constraint firstItem="CIZ-tT-yAJ" firstAttribute="trailing" secondItem="vsX-bD-Z1g" secondAttribute="trailing" constant="50" id="yOf-Ui-VeL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CIZ-tT-yAJ"/>
                     </view>
@@ -115,25 +125,59 @@
                                 </connections>
                             </slider>
                             <textField opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="25" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hUc-bz-pvy">
-                                <rect key="frame" x="80" y="311" width="215" height="46"/>
+                                <rect key="frame" x="80" y="310.5" width="215" height="46"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZh-9Y-YWs" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
+                                <rect key="frame" x="50" y="574" width="127" height="43"/>
+                                <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="sdZ-LM-0WI"/>
+                                </constraints>
+                                <state key="normal" title="CANCLE">
+                                    <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onCancelClicked:" destination="QiN-2q-3fb" eventType="touchUpInside" id="4jl-Lz-aiS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-4I-6xq" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
+                                <rect key="frame" x="198" y="574" width="127" height="43"/>
+                                <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="NhC-N7-Xt1"/>
+                                </constraints>
+                                <state key="normal" title="POST">
+                                    <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onPostClicked:" destination="QiN-2q-3fb" eventType="touchUpInside" id="xny-uc-zbS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="WTS-qX-wqC" firstAttribute="leading" secondItem="JFt-oG-N2w" secondAttribute="leading" id="3AS-x9-8B3"/>
                             <constraint firstItem="JFt-oG-N2w" firstAttribute="trailing" secondItem="hUc-bz-pvy" secondAttribute="trailing" constant="80" id="6hD-MB-WMz"/>
                             <constraint firstAttribute="bottom" secondItem="WTS-qX-wqC" secondAttribute="bottom" id="6iO-iz-ean"/>
+                            <constraint firstItem="MYN-4I-6xq" firstAttribute="width" secondItem="lZh-9Y-YWs" secondAttribute="width" id="97c-jf-ciG"/>
                             <constraint firstItem="PKE-3c-CaR" firstAttribute="trailing" secondItem="JFt-oG-N2w" secondAttribute="trailing" constant="100" id="GpA-vJ-8tN"/>
+                            <constraint firstItem="MYN-4I-6xq" firstAttribute="leading" secondItem="lZh-9Y-YWs" secondAttribute="trailing" constant="21" id="JuT-fq-fkP"/>
                             <constraint firstItem="PKE-3c-CaR" firstAttribute="centerY" secondItem="hxf-Vw-qWi" secondAttribute="centerY" id="LPr-EQ-hvE"/>
+                            <constraint firstItem="MYN-4I-6xq" firstAttribute="width" secondItem="lZh-9Y-YWs" secondAttribute="width" id="Lu0-Wm-nAd"/>
                             <constraint firstItem="hUc-bz-pvy" firstAttribute="centerY" secondItem="hxf-Vw-qWi" secondAttribute="centerY" id="Q14-VY-voU"/>
                             <constraint firstItem="WTS-qX-wqC" firstAttribute="top" secondItem="hxf-Vw-qWi" secondAttribute="top" id="bc5-Nu-jPN"/>
+                            <constraint firstItem="JFt-oG-N2w" firstAttribute="trailing" secondItem="MYN-4I-6xq" secondAttribute="trailing" constant="50" id="bu6-Ds-dpb"/>
                             <constraint firstItem="PKE-3c-CaR" firstAttribute="trailing" secondItem="WTS-qX-wqC" secondAttribute="trailing" constant="100" id="dMZ-ax-ptD"/>
                             <constraint firstItem="hUc-bz-pvy" firstAttribute="leading" secondItem="JFt-oG-N2w" secondAttribute="leading" constant="80" id="e6x-op-fvV"/>
+                            <constraint firstItem="JFt-oG-N2w" firstAttribute="bottom" secondItem="lZh-9Y-YWs" secondAttribute="bottom" constant="50" id="mWg-vf-487"/>
+                            <constraint firstItem="MYN-4I-6xq" firstAttribute="leading" secondItem="lZh-9Y-YWs" secondAttribute="trailing" constant="21" id="tnG-M6-cop"/>
+                            <constraint firstItem="JFt-oG-N2w" firstAttribute="bottom" secondItem="MYN-4I-6xq" secondAttribute="bottom" constant="50" id="usc-Re-rx2"/>
                             <constraint firstItem="hUc-bz-pvy" firstAttribute="centerX" secondItem="hxf-Vw-qWi" secondAttribute="centerX" id="vl3-1d-BTH"/>
+                            <constraint firstItem="lZh-9Y-YWs" firstAttribute="leading" secondItem="JFt-oG-N2w" secondAttribute="leading" constant="50" id="zCf-wl-4hs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JFt-oG-N2w"/>
                     </view>
@@ -155,9 +199,11 @@
                         <outlet property="depthSlider" destination="PKE-3c-CaR" id="0yt-LT-gtY"/>
                         <outlet property="objTextField" destination="hUc-bz-pvy" id="2J0-nx-ixq"/>
                         <outlet property="sceneView" destination="WTS-qX-wqC" id="YbW-GY-feT"/>
+                        <segue destination="ogZ-Rm-kNa" kind="unwind" identifier="unwindSegueToMainVC" unwindAction="unwindToMainVCWithSegue:" id="mIK-Ck-FV2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgW-Af-BLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ogZ-Rm-kNa" userLabel="Exit" sceneMemberID="exit"/>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="Eec-7D-sfW">
                     <rect key="frame" x="0.0" y="0.0" width="369" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -277,13 +323,6 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QS0-Lh-LKg">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="IMAGE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBq-95-ub1">
-                                <rect key="frame" x="140" y="184" width="52" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

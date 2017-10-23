@@ -10,6 +10,7 @@
 		CA5DA1F21F986B2D0049D545 /* UploadTextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5DA1F11F986B2D0049D545 /* UploadTextModel.swift */; };
 		CA5DA1F41F986BC30049D545 /* TextVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5DA1F31F986BC30049D545 /* TextVO.swift */; };
 		CA7776511F9C2B7C00F5F90A /* TextScene.scn in Resources */ = {isa = PBXBuildFile; fileRef = CA7776501F9C2B7C00F5F90A /* TextScene.scn */; };
+		CA7776561F9CC53300F5F90A /* ARBlueBottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7776551F9CC53200F5F90A /* ARBlueBottomButton.swift */; };
 		CA85BC251F949437004B3077 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85BC241F949437004B3077 /* AppDelegate.swift */; };
 		CA85BC271F949437004B3077 /* ARSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85BC261F949437004B3077 /* ARSceneViewController.swift */; };
 		CA85BC2A1F949437004B3077 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA85BC281F949437004B3077 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 		CA5DA1F11F986B2D0049D545 /* UploadTextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTextModel.swift; sourceTree = "<group>"; };
 		CA5DA1F31F986BC30049D545 /* TextVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextVO.swift; sourceTree = "<group>"; };
 		CA7776501F9C2B7C00F5F90A /* TextScene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = TextScene.scn; sourceTree = "<group>"; };
+		CA7776551F9CC53200F5F90A /* ARBlueBottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARBlueBottomButton.swift; sourceTree = "<group>"; };
 		CA85BC211F949437004B3077 /* Trace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA85BC241F949437004B3077 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA85BC261F949437004B3077 /* ARSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSceneViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		CA5DA1F61F98DBA30049D545 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				CA7776541F9CC4FE00F5F90A /* CustomUI */,
 				CA85BC261F949437004B3077 /* ARSceneViewController.swift */,
 				CAF69A6F1F94FD9100757249 /* CustomSegmentedControl.swift */,
 				CA85BC3B1F94E436004B3077 /* ARImageViewController.swift */,
@@ -89,6 +92,14 @@
 				CA7776501F9C2B7C00F5F90A /* TextScene.scn */,
 			);
 			path = ARSKView;
+			sourceTree = "<group>";
+		};
+		CA7776541F9CC4FE00F5F90A /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				CA7776551F9CC53200F5F90A /* ARBlueBottomButton.swift */,
+			);
+			path = CustomUI;
 			sourceTree = "<group>";
 		};
 		CA85BC181F949437004B3077 = {
@@ -210,6 +221,7 @@
 				CAF69A701F94FD9100757249 /* CustomSegmentedControl.swift in Sources */,
 				CA85BC3A1F94E424004B3077 /* ARTextViewController.swift in Sources */,
 				CAF69A6E1F94ED5A00757249 /* MyPageViewController.swift in Sources */,
+				CA7776561F9CC53300F5F90A /* ARBlueBottomButton.swift in Sources */,
 				CA85BC271F949437004B3077 /* ARSceneViewController.swift in Sources */,
 				CA85BC2D1F949438004B3077 /* Trace.xcdatamodeld in Sources */,
 				CA5DA1F21F986B2D0049D545 /* UploadTextModel.swift in Sources */,

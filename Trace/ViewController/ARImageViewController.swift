@@ -22,8 +22,6 @@ class ARImageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
-        print("before")
         self.sceneView.session.run(AppDelegate.configuration)
-        print("after")
     }
 }

@@ -24,7 +24,7 @@ class ARSceneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        self.sceneView.debugOptions = []
         
         /// myPage로 이동하기
         
@@ -78,7 +78,6 @@ class ARSceneViewController: UIViewController {
     }
     
     @IBAction func unwindToMainVC(segue: UIStoryboardSegue) {
-        print("unwind됨~!")
         let vc = segue.source as! ARTextViewController
         if let textNode = vc.realTextNode, let textContent = vc.textContent {
             textContentsList.append(TextVO(x: textNode.worldPosition.x, y: textNode.worldPosition.y, z: textNode.worldPosition.z, textContent: textContent))

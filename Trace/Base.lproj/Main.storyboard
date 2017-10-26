@@ -111,9 +111,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTS-qX-wqC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </arscnView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="PKE-3c-CaR">
                                 <rect key="frame" x="223" y="318.5" width="254" height="31"/>
                                 <constraints>
@@ -160,18 +157,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="WTS-qX-wqC" firstAttribute="leading" secondItem="JFt-oG-N2w" secondAttribute="leading" id="3AS-x9-8B3"/>
                             <constraint firstItem="JFt-oG-N2w" firstAttribute="trailing" secondItem="hUc-bz-pvy" secondAttribute="trailing" constant="80" id="6hD-MB-WMz"/>
-                            <constraint firstAttribute="bottom" secondItem="WTS-qX-wqC" secondAttribute="bottom" id="6iO-iz-ean"/>
                             <constraint firstItem="MYN-4I-6xq" firstAttribute="width" secondItem="lZh-9Y-YWs" secondAttribute="width" id="97c-jf-ciG"/>
                             <constraint firstItem="PKE-3c-CaR" firstAttribute="trailing" secondItem="JFt-oG-N2w" secondAttribute="trailing" constant="100" id="GpA-vJ-8tN"/>
                             <constraint firstItem="MYN-4I-6xq" firstAttribute="leading" secondItem="lZh-9Y-YWs" secondAttribute="trailing" constant="21" id="JuT-fq-fkP"/>
                             <constraint firstItem="PKE-3c-CaR" firstAttribute="centerY" secondItem="hxf-Vw-qWi" secondAttribute="centerY" id="LPr-EQ-hvE"/>
                             <constraint firstItem="MYN-4I-6xq" firstAttribute="width" secondItem="lZh-9Y-YWs" secondAttribute="width" id="Lu0-Wm-nAd"/>
                             <constraint firstItem="hUc-bz-pvy" firstAttribute="centerY" secondItem="hxf-Vw-qWi" secondAttribute="centerY" id="Q14-VY-voU"/>
-                            <constraint firstItem="WTS-qX-wqC" firstAttribute="top" secondItem="hxf-Vw-qWi" secondAttribute="top" id="bc5-Nu-jPN"/>
                             <constraint firstItem="JFt-oG-N2w" firstAttribute="trailing" secondItem="MYN-4I-6xq" secondAttribute="trailing" constant="50" id="bu6-Ds-dpb"/>
-                            <constraint firstItem="PKE-3c-CaR" firstAttribute="trailing" secondItem="WTS-qX-wqC" secondAttribute="trailing" constant="100" id="dMZ-ax-ptD"/>
                             <constraint firstItem="hUc-bz-pvy" firstAttribute="leading" secondItem="JFt-oG-N2w" secondAttribute="leading" constant="80" id="e6x-op-fvV"/>
                             <constraint firstItem="JFt-oG-N2w" firstAttribute="bottom" secondItem="lZh-9Y-YWs" secondAttribute="bottom" constant="50" id="mWg-vf-487"/>
                             <constraint firstItem="MYN-4I-6xq" firstAttribute="leading" secondItem="lZh-9Y-YWs" secondAttribute="trailing" constant="21" id="tnG-M6-cop"/>
@@ -198,7 +191,6 @@
                     <connections>
                         <outlet property="depthSlider" destination="PKE-3c-CaR" id="0yt-LT-gtY"/>
                         <outlet property="objTextField" destination="hUc-bz-pvy" id="2J0-nx-ixq"/>
-                        <outlet property="sceneView" destination="WTS-qX-wqC" id="YbW-GY-feT"/>
                         <segue destination="ogZ-Rm-kNa" kind="unwind" identifier="unwindSegueToMainVC" unwindAction="unwindToMainVCWithSegue:" id="mIK-Ck-FV2"/>
                     </connections>
                 </viewController>
@@ -276,7 +268,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vLw-8n-u49" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-74" y="3449"/>
+            <point key="canvasLocation" x="-74" y="3384"/>
         </scene>
         <!--Signup-->
         <scene sceneID="U1d-eK-DHQ">

@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-public struct TextVO: Object {
+public struct TextVO {
     
-    @objc dynamic var x: Float?
-    @objc dynamic var y: Float?
-    @objc dynamic var z: Float?
-    @objc dynamic var textContent: String?
+    var x: Float?
+    var y: Float?
+    var z: Float?
+    var textContent: String?
 //    var red: Float?
 //    var green: Float?
 //    var blue: Float?

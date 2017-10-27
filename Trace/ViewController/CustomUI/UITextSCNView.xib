@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UITextSCNView" customModule="Trace" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="dKM-xR-y8H">
+                    <rect key="frame" x="223" y="318" width="254" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="do7-Yx-qV1"/>
+                        <constraint firstAttribute="width" constant="250" id="n30-lt-pvK"/>
+                    </constraints>
+                </slider>
+                <textField opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="25" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8zX-dJ-rSc">
+                    <rect key="frame" x="80" y="310" width="215" height="46"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="no" smartQuotesType="no"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RvC-31-mwd" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
+                    <rect key="frame" x="50" y="574" width="127" height="43"/>
+                    <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="43" id="Q8a-el-CQ6"/>
+                    </constraints>
+                    <state key="normal" title="CANCEL">
+                        <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eXW-2J-Olu" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
+                    <rect key="frame" x="198" y="574" width="127" height="43"/>
+                    <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="43" id="ox6-sJ-QgO"/>
+                    </constraints>
+                    <state key="normal" title="POST">
+                        <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="eXW-2J-Olu" firstAttribute="leading" secondItem="RvC-31-mwd" secondAttribute="trailing" constant="21" id="35d-RO-H2h"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eXW-2J-Olu" secondAttribute="bottom" constant="50" id="6dJ-gX-4AF"/>
+                <constraint firstItem="dKM-xR-y8H" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Byy-Rr-Cc5"/>
+                <constraint firstItem="RvC-31-mwd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="E9V-xZ-RhD"/>
+                <constraint firstAttribute="trailing" secondItem="dKM-xR-y8H" secondAttribute="trailing" constant="-100" id="HI8-zu-FqL"/>
+                <constraint firstItem="eXW-2J-Olu" firstAttribute="leading" secondItem="RvC-31-mwd" secondAttribute="trailing" constant="21" id="NkH-g0-kvQ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8zX-dJ-rSc" secondAttribute="trailing" constant="80" id="TgE-5m-Lwr"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eXW-2J-Olu" secondAttribute="trailing" constant="50" id="WXZ-Xz-E6q"/>
+                <constraint firstItem="eXW-2J-Olu" firstAttribute="width" secondItem="RvC-31-mwd" secondAttribute="width" id="ZH7-ug-Mxh"/>
+                <constraint firstItem="8zX-dJ-rSc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="80" id="b3s-UR-708"/>
+                <constraint firstItem="8zX-dJ-rSc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="kHi-Cg-q3L"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="RvC-31-mwd" secondAttribute="bottom" constant="50" id="pcV-Nn-b9k"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+</document>

@@ -31,10 +31,8 @@ class ARTextViewController: UIViewController, UITextFieldDelegate, ARSCNViewDele
         
         self.sceneView.delegate = self
         self.sceneView.autoenablesDefaultLighting = true
-        
-        self.depthSlider.isEnabled = false  // 맨첨에 슬라이더 못만지게
+       
         self.depthSlider.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi/2))    // slider바 세로로 세우기.
-        self.objTextField.delegate = self
         self.objTextField.becomeFirstResponder()    // 초기 선택
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognize:)))
@@ -73,7 +71,6 @@ class ARTextViewController: UIViewController, UITextFieldDelegate, ARSCNViewDele
             return false
         }
         
-        self.depthSlider.isEnabled = true
         self.isReadyToHangTheObject = true
         textField.isHidden = true
         textField.resignFirstResponder()
@@ -110,7 +107,6 @@ class ARTextViewController: UIViewController, UITextFieldDelegate, ARSCNViewDele
     }
     
     @IBAction func onCancelClicked(_ sender: ARBlueBottomButton) {
-        self.depthSlider.isEnabled = true
         self.depthSlider.isHidden = false
         self.depthSlider.value = 0.0
         self.objTextField.isHidden = false

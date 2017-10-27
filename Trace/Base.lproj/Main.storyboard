@@ -46,6 +46,7 @@
                                     <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="onLeftButtonClicked:" destination="67y-57-aqJ" eventType="touchUpInside" id="42e-bJ-bTA"/>
                                     <segue destination="QiN-2q-3fb" kind="show" id="Z1Z-NK-fLo"/>
                                 </connections>
                             </button>
@@ -59,22 +60,45 @@
                                     <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="onRightButtonClicked:" destination="67y-57-aqJ" eventType="touchUpInside" id="kh9-rk-uNs"/>
                                     <segue destination="GnG-ye-wcW" kind="show" id="Os1-Bo-y2S"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="uM8-qv-gAY">
+                                <rect key="frame" x="223" y="318" width="254" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="7Ze-Xz-DH3"/>
+                                    <constraint firstAttribute="height" constant="30" id="gud-XD-N02"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="adjustDepth:" destination="QiN-2q-3fb" eventType="valueChanged" id="lGU-Nu-tsh"/>
+                                </connections>
+                            </slider>
+                            <textField opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="25" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cLS-uR-zh1">
+                                <rect key="frame" x="80" y="310" width="215" height="46"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="trailing" secondItem="CIZ-tT-yAJ" secondAttribute="trailing" id="36m-sq-Q0s"/>
                             <constraint firstItem="vsX-bD-Z1g" firstAttribute="leading" secondItem="nko-yB-1lW" secondAttribute="trailing" constant="21" id="50d-kX-lCY"/>
+                            <constraint firstItem="uM8-qv-gAY" firstAttribute="centerY" secondItem="bk5-i8-eji" secondAttribute="centerY" id="5Ul-mt-tp0"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="top" secondItem="bk5-i8-eji" secondAttribute="top" id="9sd-yk-1kI"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="leading" secondItem="CIZ-tT-yAJ" secondAttribute="leading" id="L1n-SB-cag"/>
                             <constraint firstItem="CIZ-tT-yAJ" firstAttribute="bottom" secondItem="vsX-bD-Z1g" secondAttribute="bottom" constant="50" id="LFO-HK-9XS"/>
                             <constraint firstItem="nko-yB-1lW" firstAttribute="leading" secondItem="CIZ-tT-yAJ" secondAttribute="leading" constant="50" id="UKK-Lc-IV8"/>
+                            <constraint firstItem="cLS-uR-zh1" firstAttribute="leading" secondItem="CIZ-tT-yAJ" secondAttribute="leading" constant="80" id="VNp-zu-5UU"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="bottom" secondItem="CIZ-tT-yAJ" secondAttribute="bottom" id="dya-Bu-eKO"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="top" secondItem="bk5-i8-eji" secondAttribute="top" id="ig8-bN-grn"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="leading" secondItem="CIZ-tT-yAJ" secondAttribute="leading" id="ixI-3d-WGy"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="bottom" secondItem="CIZ-tT-yAJ" secondAttribute="bottom" id="k6Y-MA-DER"/>
+                            <constraint firstItem="cLS-uR-zh1" firstAttribute="centerY" secondItem="bk5-i8-eji" secondAttribute="centerY" id="od7-YM-Rz2"/>
+                            <constraint firstItem="CIZ-tT-yAJ" firstAttribute="trailing" secondItem="cLS-uR-zh1" secondAttribute="trailing" constant="80" id="pZD-KO-Ajz"/>
+                            <constraint firstAttribute="trailing" secondItem="uM8-qv-gAY" secondAttribute="trailing" constant="-100" id="thy-Zs-He5"/>
                             <constraint firstItem="CIZ-tT-yAJ" firstAttribute="bottom" secondItem="nko-yB-1lW" secondAttribute="bottom" constant="50" id="wID-Bt-8kp"/>
                             <constraint firstItem="vsX-bD-Z1g" firstAttribute="width" secondItem="nko-yB-1lW" secondAttribute="width" id="yDg-ao-n14"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="trailing" secondItem="CIZ-tT-yAJ" secondAttribute="trailing" id="yMT-Zq-4bR"/>
@@ -92,9 +116,12 @@
                         <barButtonItem key="rightBarButtonItem" image="forward-btn" style="done" id="Bvr-du-9u3"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="moveImageVCBtn" destination="vsX-bD-Z1g" id="BzO-OC-RXX"/>
+                        <outlet property="depthSlider" destination="uM8-qv-gAY" id="Zy0-X3-Ofg"/>
+                        <outlet property="leftButton" destination="nko-yB-1lW" id="tWH-Us-sxV"/>
                         <outlet property="moveTextVCBtn" destination="nko-yB-1lW" id="ash-TV-HVk"/>
                         <outlet property="myPageBarButton" destination="Bvr-du-9u3" id="876-1c-ypX"/>
+                        <outlet property="objTextField" destination="cLS-uR-zh1" id="UeO-2d-HrE"/>
+                        <outlet property="rightButton" destination="vsX-bD-Z1g" id="ALJ-b2-oHj"/>
                         <outlet property="sceneView" destination="RcE-YV-ohd" id="YQM-nc-7Xn"/>
                         <segue destination="R0M-RY-bpZ" kind="show" identifier="segueMyPage" id="Kbn-JK-7g3"/>
                     </connections>

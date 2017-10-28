@@ -18,3 +18,8 @@ class ARBlueBottomButton: UIButton {
         self.layer.borderColor = UIColor.white.cgColor
     }
 }
+
+protocol ARBlueBottomButtonDelegate {
+    
+    func onClick(_ sender: ARBlueBottomButton)
+}

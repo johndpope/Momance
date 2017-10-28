@@ -10,6 +10,9 @@ import UIKit
 
 class UIMainSCNView: UIView {
     
+    @IBOutlet weak var textButton: ARBlueBottomButton!
+    @IBOutlet weak var imageButton: ARBlueBottomButton!
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -17,4 +20,6 @@ class UIMainSCNView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
+    
+    
 }

@@ -21,6 +21,9 @@
                         <constraint firstAttribute="height" constant="30" id="do7-Yx-qV1"/>
                         <constraint firstAttribute="width" constant="250" id="n30-lt-pvK"/>
                     </constraints>
+                    <connections>
+                        <action selector="onDepthValueChanged:" destination="iN0-l3-epB" eventType="valueChanged" id="rE4-QE-S7m"/>
+                    </connections>
                 </slider>
                 <textField opaque="NO" alpha="0.60000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="25" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8zX-dJ-rSc">
                     <rect key="frame" x="80" y="310" width="215" height="46"/>
@@ -66,6 +69,12 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="RvC-31-mwd" secondAttribute="bottom" constant="50" id="pcV-Nn-b9k"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="cancelButton" destination="RvC-31-mwd" id="gfT-gq-ijS"/>
+                <outlet property="depthSlider" destination="dKM-xR-y8H" id="EK0-yc-Oda"/>
+                <outlet property="objTextField" destination="8zX-dJ-rSc" id="A4V-IL-Ku6"/>
+                <outlet property="postButton" destination="eXW-2J-Olu" id="0IG-lT-iGX"/>
+            </connections>
         </view>
     </objects>
 </document>

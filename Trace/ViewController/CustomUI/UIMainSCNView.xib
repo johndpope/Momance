@@ -36,7 +36,7 @@
                     </state>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="bSf-wQ-iPW" firstAttribute="width" secondItem="Pk9-pv-Da0" secondAttribute="width" id="5hU-1c-xfd"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Pk9-pv-Da0" secondAttribute="bottom" constant="50" id="gKc-9l-LBk"/>
@@ -47,6 +47,10 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bSf-wQ-iPW" secondAttribute="bottom" constant="50" id="yNv-5b-4rR"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="imageButton" destination="bSf-wQ-iPW" id="1fr-pK-I18"/>
+                <outlet property="textButton" destination="Pk9-pv-Da0" id="gKA-fj-clL"/>
+            </connections>
         </view>
     </objects>
 </document>

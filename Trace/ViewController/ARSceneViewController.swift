@@ -87,7 +87,6 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
         // Photo Gallery 띄우기
         
         // 가져온 사진으로 Post화면 띄우기
-        print("onGalleryButtonClickedInImageScene")
         self.imageScnView?.selectOptionView.isHidden = true
         self.imageScnView?.cancelButton.isHidden = false
         self.imageScnView?.postButton.isHidden = false
@@ -96,25 +95,25 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
     /// ImageScene에서 capture버튼 눌렀을 때
     @objc func onCaptureButtonClickedInImageScene(_ sender: UIButton) {
         // 사진찍고 Post화면 띄우기
-        print("onCaptureButtonClickedInImageScene")
         self.imageScnView?.selectOptionView.isHidden = true
         self.imageScnView?.cancelButton.isHidden = false
         self.imageScnView?.postButton.isHidden = false
-        print("sceneView.bounds.width:\(sceneView.bounds.width), sceneView.bounds.height:\(sceneView.bounds.height)")
-        print("width:\(sceneView.bounds.width/6000), height:\(sceneView.bounds.height/6000)")
         let imagePlane = SCNPlane(width: self.sceneView.bounds.width/6000, height: sceneView.bounds.height/6000)
         imagePlane.firstMaterial?.diffuse.contents = sceneView.snapshot()
         imagePlane.firstMaterial?.lightingModel = .constant
-
+        
+        // let imagePlaneRear = SCNPlane(width: self.sceneView.bounds.width/6000, height: sceneView.bounds.height/6000)     // 뒷면
+        
+        
         self.imageNodeObject = imagePlane
 
         let scnNode = SCNNode(geometry: imagePlane)
         self.sceneView.pointOfView?.addChildNode(scnNode)
 
         var translation = matrix_identity_float4x4
-        translation.columns.3.z = -0.6
+        translation.columns.3.z = -0.2
         if let currentFrame = sceneView.session.currentFrame {
-                scnNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+                scnNode.simdTransform = matrix_multiply(currentFrame.camera.projectionMatrix, translation)
         }
         
     }
@@ -175,6 +174,7 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
             self.sceneView.scene.rootNode.addChildNode(createNode(textNodeOption: obj))
         }
         
+        /// 추가된 이미지 컨텐츠들 걸어 놓기.
         for obj in imageContentsList {
             self.sceneView.scene.rootNode.addChildNode(createNode(imageNodeOption: obj))
         }
@@ -208,10 +208,6 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
                 TextVO(x: textNode.worldPosition.x, y: textNode.worldPosition.y, z: textNode.worldPosition.z,
                        orientationX: textNode.worldOrientation.x, orientationY: textNode.worldOrientation.y, orientationZ: textNode.worldOrientation.z,
                        textContent: textContent))
-            
-//            TextVO(x: <#T##Float?#>, y: <#T##Float?#>, z: <#T##Float?#>, textContent: <#T##String?#>, red: <#T##Float?#>, green: <#T##Float?#>, blue: <#T##Float?#>)
-            
-            
         }
     }
     
@@ -269,14 +265,14 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
     
 }
 
-// Handler안에서의 로직 구현코드가 들어있음 - 위에는 주로 Handler메소드 구현
+/// Handler안에서의 로직 구현코드가 들어있음 - 위에는 주로 Handler메소드 구현
 extension ARSceneViewController {
     
     func createMainSceneObjects() {
         
         self.mainScnView = (Bundle.main.loadNibNamed("UIMainSCNView", owner: self, options: nil)?[0] as! UIMainSCNView) // 궁금.. -> 괄호치면 왜 warning이 없어질까?
         self.sceneView.addSubview(mainScnView!)    // 위에서 넣어줬으니 바로 언래핑해도됨.
-        
+    
         self.mainScnView?.textButton.addTarget(self, action: #selector(onTextButtonClicked(_:)), for: .touchUpInside)
         self.mainScnView?.imageButton.addTarget(self, action: #selector(onImageButtonClicked(_:)), for: .touchUpInside)
     }

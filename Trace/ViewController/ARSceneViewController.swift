@@ -8,19 +8,28 @@
 
 import UIKit
 import ARKit
-class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate {
+
+class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var myPageBarButton: UIBarButtonItem!
+    @IBOutlet weak var mainNavigationBar: UINavigationItem!
     
     var naviColor: UIColor?
-    var textContentsList = [TextVO]()
     var currentScreenState = Mode.Display
     let initScale = SCNVector3(0.005, 0.005, 0.005)
     let defaultPosition = SCNVector3(-0.14, -0.08, -0.6)
     var isReadyToHangTheObject = false
+    
+    var isGalleryOn = false
+    
+    var textContentsList = [TextVO]()
     var textNodeObject: SCNText?
     var textContent: String?
+    
+    var imageContentsList = [ImageVO]()
+    var imageNodeObject: SCNPlane?
+    var imageContent: UIImage?
     
     var mainScnView: UIMainSCNView?
     var textScnView: UITextSCNView?
@@ -36,7 +45,7 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
         super.viewDidLoad()
         
         /// AR View 디버그 옵션. ARSCNDebugOptions.showFeaturePoints - featurepoints 표시, ARSCNDebugOptions.showWorldOrigin - 월드 좌표 원점 표시
-//        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         
         /// myPage로 이동하기
         myPageBarButton.target = self
@@ -48,42 +57,96 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
         
         /// UIMainSCNView.xib파일 불러오기
         createMainSceneObjects()
-        
     }
     
+    /// MainScene에서 Text버튼 눌렀을 때
     @objc func onTextButtonClicked(_ sender: UIButton) {    // 완료.
         createTextSceneObjects()
     }
+    /// MainScene에서 Camera버튼 눌렀을 때
     @objc func onImageButtonClicked(_ sender: UIButton) {   // 완료.
         createImageSceneObjects()
     }
     
+    /// TextScene에서 Cancel버튼 눌렀을 때
     @objc func onCancelButtonClickedInTextScene(_ sender: UIButton) {
-//        removeTextSceneObjects()    // ImageSCN 지우고
         // TODO: textField, slider 초기화 - textFieldShouldReturn에서 해준거 반대로
-        
-        createMainSceneObjects()    // MainSCN 재생성
+        recreateTextScene()
         // TOKNOW: textScnView를 deallocate 해줘야 메모리에서 해제될까??
     }
+    /// TextScene에서 Post버튼 눌렀을 때
     @objc func onPostButtonClickedInTextScene(_ sender: UIButton) {
         
         hangTheText()               // 텍스트 걸고
         removeTextSceneObjects()    // 텍스트 Scene 지우고
         createMainSceneObjects()    // 메인 Scene 생성
     }
-
-    @objc func onCancelButtonClickedInImageScene(_ sender: UIButton) {
-//        removeImageSceneObjects()   // ImageSCN 지우고
-        recreateTextScene()
-        createMainSceneObjects()    // MainSCN 재생성
+    
+    /// ImageScene에서 gallery버튼 눌렀을 때
+    @objc func onGalleryButtonClickedInImageScene(_ sender: UIButton) {
+        // Photo Gallery 띄우기
+        
+        // 가져온 사진으로 Post화면 띄우기
+        print("onGalleryButtonClickedInImageScene")
+        self.imageScnView?.selectOptionView.isHidden = true
+        self.imageScnView?.cancelButton.isHidden = false
+        self.imageScnView?.postButton.isHidden = false
+        showGallery()
     }
+    /// ImageScene에서 capture버튼 눌렀을 때
+    @objc func onCaptureButtonClickedInImageScene(_ sender: UIButton) {
+        // 사진찍고 Post화면 띄우기
+        print("onCaptureButtonClickedInImageScene")
+        self.imageScnView?.selectOptionView.isHidden = true
+        self.imageScnView?.cancelButton.isHidden = false
+        self.imageScnView?.postButton.isHidden = false
+        print("sceneView.bounds.width:\(sceneView.bounds.width), sceneView.bounds.height:\(sceneView.bounds.height)")
+        print("width:\(sceneView.bounds.width/6000), height:\(sceneView.bounds.height/6000)")
+        let imagePlane = SCNPlane(width: self.sceneView.bounds.width/6000, height: sceneView.bounds.height/6000)
+        imagePlane.firstMaterial?.diffuse.contents = sceneView.snapshot()
+        imagePlane.firstMaterial?.lightingModel = .constant
+
+        self.imageNodeObject = imagePlane
+
+        let scnNode = SCNNode(geometry: imagePlane)
+        self.sceneView.pointOfView?.addChildNode(scnNode)
+
+        var translation = matrix_identity_float4x4
+        translation.columns.3.z = -0.6
+        if let currentFrame = sceneView.session.currentFrame {
+                scnNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+        }
+        
+    }
+    /// ImageScene에서 turnCamera버튼 눌렀을 때
+    @objc func onTurnCameraButtonClickedInImageScene(_ sender: UIButton) {
+        // 카메라 반전
+        print("onTurnCameraButtonClickedInImageScene")
+//        @ios(10.0)
+//        self.sceneView.session.pause()
+//        self.sceneView.session.run(ARFaceTrackingConfiguration())
+    }
+    
+    /// ImageScene에서 Cancel버튼 눌렀을 때
+    @objc func onCancelButtonClickedInImageScene(_ sender: UIButton) {
+        recreateImageScene()        // 이미지 뷰 재생성
+    }
+    /// ImageScene에서 Post버튼 눌렀을 때
     @objc func onPostButtonClickedInImageScene(_ sender: UIButton) {
         
+        self.imageScnView?.selectOptionView.isHidden = false
+        self.imageScnView?.cancelButton.isHidden = true
+        self.imageScnView?.postButton.isHidden = true
+        
+        hangTheImage()               // 이미지 걸고
+        removeImageSceneObjects()    // 이미지 Scene 지우고
+        createMainSceneObjects()    // 메인 Scene 생성
     }
     
     /// 깊이 조절 slider bar event handler
     @objc func onDepthSliderValueChanged(_ sender: UISlider) {
-        self.textScnView?.onDepthValueChanged(sender)
+        
+//        self.textScnView?.onDepthValueChanged(sender)
         if self.isReadyToHangTheObject {
             if sender.value >= 10.0 {
                 sender.value = 10.0
@@ -97,17 +160,25 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        /// ARSCNView 구동하기
-        self.sceneView.session.run(AppDelegate.configuration)
+       
+        if !isGalleryOn {
+            self.sceneView.session.run(AppDelegate.configuration)
+        } else {    // 갤러리 땜에 다시 켜진거면 이쪽으로.
+            self.isGalleryOn = false
+        }
         
         /// navigationbar 투명하게 만들기 (1줄)
         self.navigationController?.navigationBar.isTranslucent = true
         
         /// 추가된 텍스트 컨텐츠들 걸어 놓기.
         for obj in textContentsList {
-            self.sceneView.scene.rootNode.addChildNode(createNode(nodeOption: obj))
+            self.sceneView.scene.rootNode.addChildNode(createNode(textNodeOption: obj))
         }
         
+        for obj in imageContentsList {
+            self.sceneView.scene.rootNode.addChildNode(createNode(imageNodeOption: obj))
+        }
+        print("viewWillAppear")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -118,7 +189,7 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
         }
     }
 
-    // myPage로 이동하는 세그웨이 구현 메소드
+    /// myPage로 이동하는 세그웨이 구현 메소드
     @objc func movePage(_ sender: Any) {
         
         if sender is UIBarButtonItem {
@@ -127,6 +198,7 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
         }
     }
     
+    /// deprecated
     @IBAction func unwindToMainVC(segue: UIStoryboardSegue) {
         
         // ARTextViewController에서 생성된 컨텐츠를 추가하는 부분.
@@ -139,8 +211,9 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
         }
     }
     
+    /// textField에 텍스트를 입력 중인 상태에서 키보드 Done키를 눌렀을 때 수행하는 메소드
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {  // 완료.
-        print("In ARSceneViewController")
+        
         self.textContent = textField.text!
         self.textNodeObject = SCNText(string: self.textContent, extrusionDepth: 1)
         
@@ -161,6 +234,32 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
         self.sceneView.pointOfView?.addChildNode(scnNode)
         
         return true
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        picker.dismiss(animated: true)
+        if let uiImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            self.sceneView.session.run(AppDelegate.configuration)
+            self.imageContent = uiImage
+            
+            let imagePlane = SCNPlane(width: self.sceneView.bounds.width/6000, height: sceneView.bounds.height/6000)
+//            let imagePlane = SCNPlane(width: 1, height: 1)
+            imagePlane.firstMaterial?.diffuse.contents = uiImage
+            imagePlane.firstMaterial?.lightingModel = .constant
+            
+            self.imageNodeObject = imagePlane
+            
+            let scnNode = SCNNode(geometry: imagePlane)
+            self.sceneView.scene.rootNode.addChildNode(scnNode)
+//            self.sceneView.pointOfView?.addChildNode(scnNode)
+            
+            var translation = matrix_identity_float4x4
+            translation.columns.3.z = -0.1
+            if let currentFrame = sceneView.session.currentFrame {
+                scnNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+            }
+            print("translation:\(translation)")
+        }
     }
     
 }
@@ -203,8 +302,19 @@ extension ARSceneViewController {
         self.imageScnView = (Bundle.main.loadNibNamed("UIImageSCNView", owner: self, options: nil)?[0] as! UIImageSCNView)
         self.sceneView.addSubview(self.imageScnView!)
         
-        //        self.imageScnView?.cancelButton.addTarget()
-        //        self.imageScnView?.postButton.addTarget()
+        self.imageScnView?.galleryButton.addTarget(self, action: #selector(onGalleryButtonClickedInImageScene(_:)), for: .touchUpInside)
+        self.imageScnView?.captureButton.addTarget(self, action: #selector(onCaptureButtonClickedInImageScene(_:)), for: .touchUpInside)
+        self.imageScnView?.turnCameraButton.addTarget(self, action: #selector(onTurnCameraButtonClickedInImageScene(_:)), for: .touchUpInside)
+        self.imageScnView?.cancelButton.addTarget(self, action: #selector(onCancelButtonClickedInImageScene(_:)), for: .touchUpInside)
+        self.imageScnView?.postButton.addTarget(self, action: #selector(onPostButtonClickedInImageScene(_:)), for: .touchUpInside)
+        self.imageScnView?.depthSlider.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi/2))
+        
+        /// 슬라이더바 초기화
+        self.imageScnView?.depthSlider.value = 0.0
+        
+        /// 슬라이더바 value change 관련 이벤트 핸들러 추가
+        self.imageScnView?.depthSlider.addTarget(self, action: #selector(onDepthSliderValueChanged(_:)), for: .touchUpInside)
+        
     }
     
     func removeTextSceneObjects() {
@@ -224,6 +334,15 @@ extension ARSceneViewController {
         }
     }
     
+    func recreateImageScene() {
+        self.isReadyToHangTheObject = false
+        self.imageScnView?.depthSlider.value = 0.0
+        self.sceneView.pointOfView?.enumerateChildNodes { (node, _) in
+            node.removeFromParentNode()
+        }
+    }
+    
+    /// 대기중인 텍스트를 걸어놓는 메소드
     func hangTheText() {
         if self.isReadyToHangTheObject {     // 걸어 놓을 준비가 되었다면 탭 제스처를 인식
             
@@ -252,8 +371,40 @@ extension ARSceneViewController {
         }
     }
     
+    /// 대기중인 이미지를 걸어놓는 메소드
+    func hangTheImage() {
+        if self.isReadyToHangTheObject {     // 걸어 놓을 준비가 되었다면 탭 제스처를 인식
+            
+            self.isReadyToHangTheObject = false
+            
+            let imageNode = SCNNode(geometry: imageNodeObject)
+            guard let world = (self.sceneView.pointOfView?.childNodes[0].worldPosition) else {
+                print("pointOfView의 childNodes가 없습니다.")
+                return
+            }
+            
+//            imageNode.scale = initScale
+            imageNode.position = world
+            
+            if let content = imageContent {
+                imageContentsList.append(ImageVO(x: imageNode.worldPosition.x, y: imageNode.worldPosition.y, z: imageNode.worldPosition.z, imageContent: content))
+            }
+            
+            /// 추가된 컨텐츠들 걸어놓기
+            self.sceneView.scene.rootNode.addChildNode(imageNode)
+            self.sceneView.pointOfView?.enumerateChildNodes { (node, _) in
+                node.removeFromParentNode()
+            }
+            
+            var translation = matrix_identity_float4x4
+            translation.columns.3.z = -0.6
+            imageNode.simdTransform = matrix_multiply(imageNode.simdTransform, translation)
+            
+        }
+    }
+    
     /// x, y, z, 텍스트 값을 가지고 있는 TextVO의 객체를 넣어주면 node를 반환한다.
-    func createNode(nodeOption option: TextVO!) -> SCNNode{         // optional unwrapping 주의 함수.
+    func createNode(textNodeOption option: TextVO!) -> SCNNode{         // optional unwrapping 주의 함수.
         
         let tNode = SCNText(string: option.textContent, extrusionDepth: 1)
         tNode.flatness = 0
@@ -264,5 +415,33 @@ extension ARSceneViewController {
         
         return textNode
     }
+    
+    /// x, y, z, UIImage 값을 가지고 있는 ImageVO의 객체를 넣어주면 node를 반환한다.
+    func createNode(imageNodeOption option: ImageVO!) -> SCNNode{         // optional unwrapping 주의 함수.
+        
+//        let iNode = SCNPlane(width: self.sceneView.bounds.width/6000, height: self.sceneView.bounds.height/6000)
+        let iNode = SCNPlane(width: 1, height: 1)
+        iNode.firstMaterial?.diffuse.contents = imageContent
+        let imageNode = SCNNode(geometry: iNode)
+        imageNode.name = "imageNode"
+        imageNode.position = SCNVector3(option.x!, option.y!, option.z!)
+        
+        return imageNode
+    }
+    
+    /// Photo Gallery 실행하는 메소드
+    func showGallery() {
+        self.isGalleryOn = true
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .savedPhotosAlbum
+        picker.allowsEditing = true
+        self.present(picker, animated: true)
+    }
 }
+
+/**
+ xib 관련 개념 링크 - http://suho.berlin/engineering/ios/ios-storyboard-nibxib-code/
+ 
+ */
 

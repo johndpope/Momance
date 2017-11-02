@@ -15,7 +15,14 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k07-g7-hei" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="d7H-Xr-1MR">
+                    <rect key="frame" x="223" y="318" width="254" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="250" id="ICf-1y-9Cp"/>
+                        <constraint firstAttribute="height" constant="30" id="mk9-aj-Dmm"/>
+                    </constraints>
+                </slider>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k07-g7-hei" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
                     <rect key="frame" x="198" y="574" width="127" height="43"/>
                     <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -25,7 +32,7 @@
                         <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T0D-WF-BSg" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T0D-WF-BSg" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
                     <rect key="frame" x="50" y="574" width="127" height="43"/>
                     <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -35,19 +42,50 @@
                         <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qy3-rC-slA">
+                    <rect key="frame" x="16" y="541" width="343" height="108"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v3Z-au-A3S">
+                            <rect key="frame" x="39" y="43" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ft8-bz-EPo">
+                            <rect key="frame" x="160" y="43" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rfz-wZ-xMk">
+                            <rect key="frame" x="282" y="43" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="T0D-WF-BSg" secondAttribute="bottom" constant="50" id="7AQ-DJ-ohC"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="k07-g7-hei" secondAttribute="trailing" constant="50" id="CRV-TD-WkA"/>
                 <constraint firstItem="k07-g7-hei" firstAttribute="width" secondItem="T0D-WF-BSg" secondAttribute="width" id="UOO-f4-eKv"/>
+                <constraint firstItem="d7H-Xr-1MR" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="USu-Co-Tky"/>
                 <constraint firstItem="k07-g7-hei" firstAttribute="leading" secondItem="T0D-WF-BSg" secondAttribute="trailing" constant="21" id="X1X-Bs-8i0"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="k07-g7-hei" secondAttribute="bottom" constant="50" id="cui-Zg-Vsp"/>
                 <constraint firstItem="k07-g7-hei" firstAttribute="leading" secondItem="T0D-WF-BSg" secondAttribute="trailing" constant="21" id="k6C-La-1sJ"/>
                 <constraint firstItem="k07-g7-hei" firstAttribute="leading" secondItem="T0D-WF-BSg" secondAttribute="trailing" constant="21" id="uNA-F4-u2O"/>
                 <constraint firstItem="T0D-WF-BSg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="xc2-YF-mOb"/>
+                <constraint firstAttribute="trailing" secondItem="d7H-Xr-1MR" secondAttribute="trailing" constant="-100" id="zfD-iV-tY7"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="cancelButton" destination="T0D-WF-BSg" id="H0B-iG-3cS"/>
+                <outlet property="captureButton" destination="ft8-bz-EPo" id="pAA-JZ-G6Q"/>
+                <outlet property="depthSlider" destination="d7H-Xr-1MR" id="tfD-Ff-2kb"/>
+                <outlet property="galleryButton" destination="v3Z-au-A3S" id="wL5-kS-VW0"/>
+                <outlet property="postButton" destination="k07-g7-hei" id="yw4-M1-HJf"/>
+                <outlet property="selectOptionView" destination="Qy3-rC-slA" id="auu-YY-P9H"/>
+                <outlet property="turnCameraButton" destination="Rfz-wZ-xMk" id="jbr-ZV-P1r"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
 </document>

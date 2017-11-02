@@ -56,6 +56,7 @@
                         <barButtonItem key="rightBarButtonItem" image="forward-btn" style="done" id="Bvr-du-9u3"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="mainNavigationBar" destination="Fw1-ab-bDz" id="78Y-lK-pwf"/>
                         <outlet property="myPageBarButton" destination="Bvr-du-9u3" id="876-1c-ypX"/>
                         <outlet property="sceneView" destination="RcE-YV-ohd" id="YQM-nc-7Xn"/>
                         <segue destination="R0M-RY-bpZ" kind="show" identifier="segueMyPage" id="Kbn-JK-7g3"/>

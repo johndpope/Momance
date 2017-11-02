@@ -36,49 +36,13 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RcE-YV-ohd">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nko-yB-1lW" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
-                                <rect key="frame" x="50" y="574" width="127" height="43"/>
-                                <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="Abf-4G-7Ch"/>
-                                </constraints>
-                                <state key="normal" title="TEXT">
-                                    <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="QiN-2q-3fb" kind="show" id="Z1Z-NK-fLo"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vsX-bD-Z1g" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
-                                <rect key="frame" x="198" y="574" width="127" height="43"/>
-                                <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="cRk-CO-bME"/>
-                                </constraints>
-                                <state key="normal" title="CAMERA">
-                                    <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="GnG-ye-wcW" kind="show" id="Os1-Bo-y2S"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="trailing" secondItem="CIZ-tT-yAJ" secondAttribute="trailing" id="36m-sq-Q0s"/>
-                            <constraint firstItem="vsX-bD-Z1g" firstAttribute="leading" secondItem="nko-yB-1lW" secondAttribute="trailing" constant="21" id="50d-kX-lCY"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="top" secondItem="bk5-i8-eji" secondAttribute="top" id="9sd-yk-1kI"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="leading" secondItem="CIZ-tT-yAJ" secondAttribute="leading" id="L1n-SB-cag"/>
-                            <constraint firstItem="CIZ-tT-yAJ" firstAttribute="bottom" secondItem="vsX-bD-Z1g" secondAttribute="bottom" constant="50" id="LFO-HK-9XS"/>
-                            <constraint firstItem="nko-yB-1lW" firstAttribute="leading" secondItem="CIZ-tT-yAJ" secondAttribute="leading" constant="50" id="UKK-Lc-IV8"/>
                             <constraint firstItem="RcE-YV-ohd" firstAttribute="bottom" secondItem="CIZ-tT-yAJ" secondAttribute="bottom" id="dya-Bu-eKO"/>
-                            <constraint firstItem="RcE-YV-ohd" firstAttribute="top" secondItem="bk5-i8-eji" secondAttribute="top" id="ig8-bN-grn"/>
-                            <constraint firstItem="RcE-YV-ohd" firstAttribute="leading" secondItem="CIZ-tT-yAJ" secondAttribute="leading" id="ixI-3d-WGy"/>
-                            <constraint firstItem="RcE-YV-ohd" firstAttribute="bottom" secondItem="CIZ-tT-yAJ" secondAttribute="bottom" id="k6Y-MA-DER"/>
-                            <constraint firstItem="CIZ-tT-yAJ" firstAttribute="bottom" secondItem="nko-yB-1lW" secondAttribute="bottom" constant="50" id="wID-Bt-8kp"/>
-                            <constraint firstItem="vsX-bD-Z1g" firstAttribute="width" secondItem="nko-yB-1lW" secondAttribute="width" id="yDg-ao-n14"/>
-                            <constraint firstItem="RcE-YV-ohd" firstAttribute="trailing" secondItem="CIZ-tT-yAJ" secondAttribute="trailing" id="yMT-Zq-4bR"/>
-                            <constraint firstItem="CIZ-tT-yAJ" firstAttribute="trailing" secondItem="vsX-bD-Z1g" secondAttribute="trailing" constant="50" id="yOf-Ui-VeL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CIZ-tT-yAJ"/>
                     </view>
@@ -92,8 +56,7 @@
                         <barButtonItem key="rightBarButtonItem" image="forward-btn" style="done" id="Bvr-du-9u3"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="moveImageVCBtn" destination="vsX-bD-Z1g" id="BzO-OC-RXX"/>
-                        <outlet property="moveTextVCBtn" destination="nko-yB-1lW" id="ash-TV-HVk"/>
+                        <outlet property="mainNavigationBar" destination="Fw1-ab-bDz" id="78Y-lK-pwf"/>
                         <outlet property="myPageBarButton" destination="Bvr-du-9u3" id="876-1c-ypX"/>
                         <outlet property="sceneView" destination="RcE-YV-ohd" id="YQM-nc-7Xn"/>
                         <segue destination="R0M-RY-bpZ" kind="show" identifier="segueMyPage" id="Kbn-JK-7g3"/>
@@ -253,7 +216,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oTx-dN-vqo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="672.79999999999995" y="2660.4197901049479"/>
+            <point key="canvasLocation" x="804" y="1854"/>
         </scene>
         <!--PhotoGallery-->
         <scene sceneID="ba0-My-wPM">

@@ -6,11 +6,5 @@ target 'Trace' do
   use_frameworks!
 
   # Pods for Trace
-  pod 'RealmSwift'
-
-  target 'TraceTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
 
 end

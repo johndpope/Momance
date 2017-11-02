@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UIMainSCNView" customModule="Trace" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pk9-pv-Da0" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
+                    <rect key="frame" x="50" y="574" width="127" height="43"/>
+                    <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="43" id="Mk9-1D-25v"/>
+                    </constraints>
+                    <state key="normal" title="TEXT">
+                        <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSf-wQ-iPW" customClass="ARBlueBottomButton" customModule="Trace" customModuleProvider="target">
+                    <rect key="frame" x="198" y="574" width="127" height="43"/>
+                    <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="43" id="YDO-hp-iUF"/>
+                    </constraints>
+                    <state key="normal" title="CAMERA">
+                        <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="bSf-wQ-iPW" firstAttribute="width" secondItem="Pk9-pv-Da0" secondAttribute="width" id="5hU-1c-xfd"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Pk9-pv-Da0" secondAttribute="bottom" constant="50" id="gKc-9l-LBk"/>
+                <constraint firstItem="bSf-wQ-iPW" firstAttribute="leading" secondItem="Pk9-pv-Da0" secondAttribute="trailing" constant="21" id="jae-GV-LdZ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bSf-wQ-iPW" secondAttribute="trailing" constant="50" id="niU-1G-hlM"/>
+                <constraint firstItem="Pk9-pv-Da0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="oZ0-4W-gul"/>
+                <constraint firstItem="bSf-wQ-iPW" firstAttribute="leading" secondItem="Pk9-pv-Da0" secondAttribute="trailing" constant="21" id="sCb-WI-61o"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bSf-wQ-iPW" secondAttribute="bottom" constant="50" id="yNv-5b-4rR"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="imageButton" destination="bSf-wQ-iPW" id="1fr-pK-I18"/>
+                <outlet property="textButton" destination="Pk9-pv-Da0" id="gKA-fj-clL"/>
+            </connections>
+        </view>
+    </objects>
+</document>

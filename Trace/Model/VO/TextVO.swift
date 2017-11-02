@@ -14,6 +14,9 @@ public struct TextVO {
     var x: Float?
     var y: Float?
     var z: Float?
+    var orientationX: Float?
+    var orientationY: Float?
+    var orientationZ: Float?
     var textContent: String?
 //    var red: Float?
 //    var green: Float?

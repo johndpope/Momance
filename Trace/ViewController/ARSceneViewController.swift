@@ -204,7 +204,11 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
         // ARTextViewController에서 생성된 컨텐츠를 추가하는 부분.
         let vc = segue.source as! ARTextViewController
         if let textNode = vc.realTextNode, let textContent = vc.textContent {
-            textContentsList.append(TextVO(x: textNode.worldPosition.x, y: textNode.worldPosition.y, z: textNode.worldPosition.z, textContent: textContent))
+            textContentsList.append(
+                TextVO(x: textNode.worldPosition.x, y: textNode.worldPosition.y, z: textNode.worldPosition.z,
+                       orientationX: textNode.worldOrientation.x, orientationY: textNode.worldOrientation.y, orientationZ: textNode.worldOrientation.z,
+                       textContent: textContent))
+            
 //            TextVO(x: <#T##Float?#>, y: <#T##Float?#>, z: <#T##Float?#>, textContent: <#T##String?#>, red: <#T##Float?#>, green: <#T##Float?#>, blue: <#T##Float?#>)
             
             
@@ -257,6 +261,7 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
             translation.columns.3.z = -0.1
             if let currentFrame = sceneView.session.currentFrame {
                 scnNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+                
             }
             print("translation:\(translation)")
         }
@@ -349,16 +354,20 @@ extension ARSceneViewController {
             self.isReadyToHangTheObject = false
             
             let textNode = SCNNode(geometry: textNodeObject)
-            guard let world = (self.sceneView.pointOfView?.childNodes[0].worldPosition) else {
+            guard let worldPosition = (self.sceneView.pointOfView?.childNodes[0].worldPosition) else {
+                print("pointOfView의 childNodes가 없습니다.")
+                return
+            }
+            guard let cameraOrientation = (self.sceneView.pointOfView?.orientation) else {
                 print("pointOfView의 childNodes가 없습니다.")
                 return
             }
             
             textNode.scale = initScale
-            textNode.position = world
-            
+            textNode.position = worldPosition
+            textNode.orientation = cameraOrientation
             if let content = textContent {
-                textContentsList.append(TextVO(x: textNode.worldPosition.x, y: textNode.worldPosition.y, z: textNode.worldPosition.z, textContent: content))
+                textContentsList.append(TextVO(x: textNode.worldPosition.x, y: textNode.worldPosition.y, z: textNode.worldPosition.z, orientationX: textNode.orientation.x, orientationY: textNode.orientation.y, orientationZ: textNode.orientation.z, textContent: content))
             }
             
             /// 추가된 컨텐츠들 걸어놓기

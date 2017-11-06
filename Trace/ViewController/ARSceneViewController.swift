@@ -15,24 +15,25 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var myPageBarButton: UIBarButtonItem!
     @IBOutlet weak var mainNavigationBar: UINavigationItem!
     
-    var naviColor: UIColor?
+    var naviColor: UIColor? // 타이틀 컬러는 AR화면일 때, 투명으로 해주기 위한 변수
     var currentScreenState = Mode.Display
     let defaultTextScale = SCNVector3(0.005, 0.005, 0.005)
     let defaultTextPosition = SCNVector3(-0.14, -0.08, -0.6)
     let defaultImageScale = SCNVector3(3.0, 3.0, 3.0)
     let defaultImagePosition = SCNVector3(0.0, 0.0, -0.6)
-    var isReadyToHangTheObject = false
     
-    var isGalleryOn = false
+    var isReadyToHangTheObject = false      // 지금 걸고 있는 화면인지 아닌지
+    var isGalleryOn = false                 // 갤러리 때문에 ARSCNView가 viewWillAppear에서 두번 가동되는 일이 없도록 하는 flag
     
-    var textContentsList = [TextVO]()
-    var textNodeObject: SCNText?
-    var textContent: String?
+    var textContentsList = [TextVO]()       // 화면에 보일 모든 텍스트 리스트에 대한 속성 값들
+    var textNodeObject: SCNText?            // 가장 최근에 걸어 놓은 텍스트 오브젝트 내용물
+    var textContent: String?                // 오브젝트의 String 값
     
-    var imageContentsList = [ImageVO]()
-    var imageNodeObject: SCNPlane?
-    var imageContent: UIImage?
+    var imageContentsList = [ImageVO]()     // 화면에 보일 모든 이미지 리스트에 대한 속성 값들
+    var imageNodeObject: SCNPlane?          // 가장 최근에 걸어 놓은 이미지 오브젝트 내용물
+    var imageContent: UIImage?              // 오브젝트의 실제 UIImage 값
     
+    // xib로 구성된 화면 껍질들
     var mainScnView: UIMainSCNView?
     var textScnView: UITextSCNView?
     var imageScnView: UIImageSCNView?
@@ -46,18 +47,18 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /// AR View 디버그 옵션. ARSCNDebugOptions.showFeaturePoints - featurepoints 표시, ARSCNDebugOptions.showWorldOrigin - 월드 좌표 원점 표시
+        // AR View 디버그 옵션. ARSCNDebugOptions.showFeaturePoints - featurepoints 표시, ARSCNDebugOptions.showWorldOrigin - 월드 좌표 원점 표시
 //        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         
-        /// myPage로 이동하기
+        // myPage로 이동하기
         myPageBarButton.target = self
         myPageBarButton.action = #selector(movePage(_:))
         
-        /// navigationbar 투명하게 만들기 (2줄)
+        // navigationbar 투명하게 만들기 (2줄)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        /// UIMainSCNView.xib파일 불러오기
+        // UIMainSCNView.xib파일 불러오기
         createMainSceneObjects()
     }
     
@@ -93,32 +94,7 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     /// ImageScene에서 capture버튼 눌렀을 때
     @objc func onCaptureButtonClickedInImageScene(_ sender: UIButton) {
         // 사진찍고 Post화면 띄우기
-        // button 셋팅
-        self.imageScnView?.selectOptionView.isHidden = true
-        self.imageScnView?.cancelButton.isHidden = false
-        self.imageScnView?.postButton.isHidden = false
-        
-        // 걸어놓을 준비가 되었다는 것을 알림
-        self.isReadyToHangTheObject = true
-        
-        // image를 평면에 셋팅
-        let imagePlane = SCNPlane(width: self.sceneView.bounds.width/6000, height: sceneView.bounds.height/6000)
-        imagePlane.firstMaterial?.diffuse.contents = sceneView.snapshot()
-        imagePlane.firstMaterial?.lightingModel = .constant
-        
-        self.imageNodeObject = imagePlane   // 지금 등록한 오브젝트가 뭔지 잠시 저장
-
-        print("width:\(imagePlane.width), height:\(imagePlane.height)")
-        
-        let scnNode = SCNNode(geometry: imagePlane)
-        scnNode.name = "textNode"
-        scnNode.scale = self.defaultImageScale
-        scnNode.position = self.defaultImagePosition
-        self.sceneView.pointOfView?.addChildNode(scnNode)
-        
-        // depthSlider가 작동하도록.
-        self.imageScnView?.depthSlider.addTarget(self, action: #selector(onDepthSliderValueChanged(_:)), for: .touchUpInside)
-        
+        underImageCapturing(uiImage: sceneView.snapshot())
     }
     
     /// ImageScene에서 turnCamera버튼 눌렀을 때
@@ -139,6 +115,7 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
         self.imageScnView?.selectOptionView.isHidden = false
         self.imageScnView?.cancelButton.isHidden = true
         self.imageScnView?.postButton.isHidden = true
+        self.imageScnView?.depthSlider.isHidden = true
         
         hangTheImage()               // 이미지 걸고
         removeImageSceneObjects()    // 이미지 Scene 지우고
@@ -163,10 +140,14 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
        
-        if !isGalleryOn {
+//        if !isGalleryOn {
             self.sceneView.session.run(AppDelegate.configuration)
-        } else {    // 갤러리 땜에 다시 켜진거면 이쪽으로.
-            self.isGalleryOn = false
+//        } else {    // 갤러리 땜에 다시 켜진거면 이쪽으로.
+//            self.isGalleryOn = false
+//        }
+        if isGalleryOn {
+            underImageCapturing(uiImage: imageContent!)
+            isGalleryOn = false
         }
         
         /// navigationbar 투명하게 만들기 (1줄)
@@ -250,31 +231,17 @@ extension ARSceneViewController: UITextFieldDelegate, UIImagePickerControllerDel
     /// 포토 갤러리 메소드
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        
-        picker.dismiss(animated: true)
-        if let uiImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+        if let uiImage = info[UIImagePickerControllerEditedImage] as? UIImage { // 이미지를 제대로 받아왔으면
             
-            self.imageScnView?.selectOptionView.isHidden = true
-            self.imageScnView?.cancelButton.isHidden = false
-            self.imageScnView?.postButton.isHidden = false
-            
-            self.isReadyToHangTheObject = true
-            self.sceneView.session.run(AppDelegate.configuration)
-            self.imageContent = uiImage
-            
-            // image를 담을 평면 생성
-            let imagePlane = SCNPlane(width: self.sceneView.bounds.width/6000, height: sceneView.bounds.height/6000)
-            //            let imagePlane = SCNPlane(width: 1, height: 1)
-            imagePlane.firstMaterial?.diffuse.contents = uiImage
-            imagePlane.firstMaterial?.lightingModel = .constant
-            // TODO: image를 y축을 180도 돌려서 같은 위치에 고정시키기( SCNPlane은 한쪽에서 밖에 안보이니까)
-            
-            self.imageNodeObject = imagePlane
-            let scnNode = SCNNode(geometry: imagePlane)
-            scnNode.worldPosition = SCNVector3(0, 0, -0.1)
-            self.sceneView.pointOfView?.addChildNode(scnNode)
-            
+//            self.sceneView.session.run(AppDelegate.configuration)   // 이 메소드가 viewWillAppear보다 먼저 실행되서 여기서는 먼저 ARSCNView를 실행해야함
+//            underImageCapturing(uiImage: uiImage)
+            imageContent = uiImage
+            isGalleryOn = true
         }
+        // picker 화면 없애고
+        picker.dismiss(animated: true)
+        
+        // TODO: 이미지 제대로 안왔다고 힌트 주기
     }
 }
 
@@ -324,6 +291,7 @@ extension ARSceneViewController {
         self.imageScnView?.depthSlider.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi/2))
         
         /// 슬라이더바 초기화
+        self.imageScnView?.isHidden = true
         self.imageScnView?.depthSlider.value = 0.0
         
         /// 슬라이더바 value change 관련 이벤트 핸들러 추가
@@ -391,7 +359,7 @@ extension ARSceneViewController {
     
     /// 대기중인 이미지를 걸어놓는 메소드
     func hangTheImage() {
-        if self.isReadyToHangTheObject {     // 걸어 놓을 준비가 되었다면 탭 제스처를 인식
+        if self.isReadyToHangTheObject {
             self.isReadyToHangTheObject = false
             
             let imageNode = SCNNode(geometry: imageNodeObject)
@@ -417,11 +385,6 @@ extension ARSceneViewController {
             self.sceneView.pointOfView?.enumerateChildNodes { (node, _) in
                 node.removeFromParentNode()
             }
-            
-//            var translation = matrix_identity_float4x4
-//            translation.columns.3.z = -0.6
-//            imageNode.simdTransform = matrix_multiply(imageNode.simdTransform, translation)
-            
         }
     }
     
@@ -441,7 +404,6 @@ extension ARSceneViewController {
     /// x, y, z, UIImage 값을 가지고 있는 ImageVO의 객체를 넣어주면 node를 반환한다.
     func createNode(imageNodeOption option: ImageVO!) -> SCNNode{         // optional unwrapping 주의 함수.
         
-//        let iNode = SCNPlane(width: self.sceneView.bounds.width/6000, height: self.sceneView.bounds.height/6000)
         let iNode = SCNPlane(width: 1, height: 1)
         iNode.firstMaterial?.diffuse.contents = imageContent
         let imageNode = SCNNode(geometry: iNode)
@@ -453,12 +415,39 @@ extension ARSceneViewController {
     
     /// Photo Gallery 실행하는 메소드
     func showGallery() {
-        self.isGalleryOn = true
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.sourceType = .savedPhotosAlbum
         picker.allowsEditing = true
         self.present(picker, animated: true)
+    }
+    
+    func underImageCapturing(uiImage: UIImage) {
+        
+        // button 셋팅
+        self.imageScnView?.selectOptionView.isHidden = true
+        self.imageScnView?.cancelButton.isHidden = false
+        self.imageScnView?.postButton.isHidden = false
+        self.imageScnView?.depthSlider.isHidden = false
+        
+        // 걸어놓을 준비가 되었다는 것을 알림
+        self.isReadyToHangTheObject = true
+        
+        // image를 평면에 셋팅
+        let imagePlane = SCNPlane(width: self.sceneView.bounds.width/6000, height: sceneView.bounds.height/6000)
+        imagePlane.firstMaterial?.diffuse.contents = uiImage
+        imagePlane.firstMaterial?.lightingModel = .constant
+        
+        self.imageNodeObject = imagePlane   // 지금 등록한 오브젝트가 뭔지 잠시 저장
+        
+        let scnNode = SCNNode(geometry: imagePlane)
+        scnNode.name = "imageNode"
+        scnNode.scale = self.defaultImageScale
+        scnNode.position = self.defaultImagePosition
+        self.sceneView.pointOfView?.addChildNode(scnNode)
+        
+        // depthSlider가 작동하도록.
+//        self.imageScnView?.depthSlider.addTarget(self, action: #selector(onDepthSliderValueChanged(_:)), for: .touchUpInside)
     }
 }
 

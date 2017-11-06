@@ -11,7 +11,6 @@
 		CA4DD78C1FA8AB7700DA6810 /* ImageVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4DD78B1FA8AB7700DA6810 /* ImageVO.swift */; };
 		CA5DA1F21F986B2D0049D545 /* UploadTextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5DA1F11F986B2D0049D545 /* UploadTextModel.swift */; };
 		CA5DA1F41F986BC30049D545 /* TextVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5DA1F31F986BC30049D545 /* TextVO.swift */; };
-		CA7776511F9C2B7C00F5F90A /* TextScene.scn in Resources */ = {isa = PBXBuildFile; fileRef = CA7776501F9C2B7C00F5F90A /* TextScene.scn */; };
 		CA7776561F9CC53300F5F90A /* ARBlueBottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7776551F9CC53200F5F90A /* ARBlueBottomButton.swift */; };
 		CA85BC251F949437004B3077 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85BC241F949437004B3077 /* AppDelegate.swift */; };
 		CA85BC271F949437004B3077 /* ARSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA85BC261F949437004B3077 /* ARSceneViewController.swift */; };
@@ -39,7 +38,6 @@
 		CA4DD78B1FA8AB7700DA6810 /* ImageVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageVO.swift; sourceTree = "<group>"; };
 		CA5DA1F11F986B2D0049D545 /* UploadTextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTextModel.swift; sourceTree = "<group>"; };
 		CA5DA1F31F986BC30049D545 /* TextVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextVO.swift; sourceTree = "<group>"; };
-		CA7776501F9C2B7C00F5F90A /* TextScene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = TextScene.scn; sourceTree = "<group>"; };
 		CA7776551F9CC53200F5F90A /* ARBlueBottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARBlueBottomButton.swift; sourceTree = "<group>"; };
 		CA85BC211F949437004B3077 /* Momance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Momance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA85BC241F949437004B3077 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,14 +123,6 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		CA77762F1F9A5DD600F5F90A /* ARSKView */ = {
-			isa = PBXGroup;
-			children = (
-				CA7776501F9C2B7C00F5F90A /* TextScene.scn */,
-			);
-			path = ARSKView;
-			sourceTree = "<group>";
-		};
 		CA7776541F9CC4FE00F5F90A /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,7 +159,6 @@
 		CA85BC231F949437004B3077 /* Trace */ = {
 			isa = PBXGroup;
 			children = (
-				CA77762F1F9A5DD600F5F90A /* ARSKView */,
 				CA5DA1F61F98DBA30049D545 /* ViewController */,
 				CA5DA1F01F986B0C0049D545 /* Model */,
 				CA85BC241F949437004B3077 /* AppDelegate.swift */,
@@ -257,7 +246,6 @@
 			files = (
 				CA85BC321F949438004B3077 /* LaunchScreen.storyboard in Resources */,
 				CA85BC2F1F949438004B3077 /* Assets.xcassets in Resources */,
-				CA7776511F9C2B7C00F5F90A /* TextScene.scn in Resources */,
 				CACCADF41FA16E2800101702 /* User.plist in Resources */,
 				CACCAE0B1FA2DF1B00101702 /* UIMainSCNView.xib in Resources */,
 				CACCAE091FA2DEF100101702 /* UIImageSCNView.xib in Resources */,

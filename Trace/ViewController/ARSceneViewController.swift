@@ -8,7 +8,7 @@
 
 import UIKit
 import ARKit
-
+//
 class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var sceneView: ARSCNView!
@@ -17,8 +17,10 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
     
     var naviColor: UIColor?
     var currentScreenState = Mode.Display
-    let initScale = SCNVector3(0.005, 0.005, 0.005)
-    let defaultPosition = SCNVector3(-0.14, -0.08, -0.6)
+    let defaultTextScale = SCNVector3(0.005, 0.005, 0.005)
+    let defaultTextPosition = SCNVector3(-0.14, -0.08, -0.6)
+    let defaultImageScale = SCNVector3(3.0, 3.0, 3.0)
+    let defaultImagePosition = SCNVector3(0.0, 0.0, -0.6)
     var isReadyToHangTheObject = false
     
     var isGalleryOn = false
@@ -85,50 +87,47 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
     /// ImageScene에서 gallery버튼 눌렀을 때
     @objc func onGalleryButtonClickedInImageScene(_ sender: UIButton) {
         // Photo Gallery 띄우기
-        
-        // 가져온 사진으로 Post화면 띄우기
-        self.imageScnView?.selectOptionView.isHidden = true
-        self.imageScnView?.cancelButton.isHidden = false
-        self.imageScnView?.postButton.isHidden = false
         showGallery()
+        
     }
     /// ImageScene에서 capture버튼 눌렀을 때
     @objc func onCaptureButtonClickedInImageScene(_ sender: UIButton) {
         // 사진찍고 Post화면 띄우기
+        // button 셋팅
         self.imageScnView?.selectOptionView.isHidden = true
         self.imageScnView?.cancelButton.isHidden = false
         self.imageScnView?.postButton.isHidden = false
+        
+        // image를 평면에 셋팅
         let imagePlane = SCNPlane(width: self.sceneView.bounds.width/6000, height: sceneView.bounds.height/6000)
         imagePlane.firstMaterial?.diffuse.contents = sceneView.snapshot()
         imagePlane.firstMaterial?.lightingModel = .constant
         
-        // let imagePlaneRear = SCNPlane(width: self.sceneView.bounds.width/6000, height: sceneView.bounds.height/6000)     // 뒷면
-        
-        
-        self.imageNodeObject = imagePlane
+        self.imageNodeObject = imagePlane   // 지금 등록한 오브젝트가 뭔지 잠시 저장
 
+        print("width:\(imagePlane.width), height:\(imagePlane.height)")
+        
         let scnNode = SCNNode(geometry: imagePlane)
+        scnNode.name = "textNode"
+        scnNode.scale = self.defaultImageScale
+        scnNode.position = self.defaultImagePosition
         self.sceneView.pointOfView?.addChildNode(scnNode)
-
-        var translation = matrix_identity_float4x4
-        translation.columns.3.z = -0.2
-        if let currentFrame = sceneView.session.currentFrame {
-                scnNode.simdTransform = matrix_multiply(currentFrame.camera.projectionMatrix, translation)
-        }
+        
+        // depthSlider가 작동하도록.
+        self.imageScnView?.depthSlider.addTarget(self, action: #selector(onDepthSliderValueChanged(_:)), for: .touchUpInside)
         
     }
+    
     /// ImageScene에서 turnCamera버튼 눌렀을 때
     @objc func onTurnCameraButtonClickedInImageScene(_ sender: UIButton) {
         // 카메라 반전
         print("onTurnCameraButtonClickedInImageScene")
-//        @ios(10.0)
-//        self.sceneView.session.pause()
-//        self.sceneView.session.run(ARFaceTrackingConfiguration())
     }
     
     /// ImageScene에서 Cancel버튼 눌렀을 때
     @objc func onCancelButtonClickedInImageScene(_ sender: UIButton) {
         recreateImageScene()        // 이미지 뷰 재생성
+        self.isReadyToHangTheObject = false
     }
     /// ImageScene에서 Post버튼 눌렀을 때
     @objc func onPostButtonClickedInImageScene(_ sender: UIButton) {
@@ -136,6 +135,7 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
         self.imageScnView?.selectOptionView.isHidden = false
         self.imageScnView?.cancelButton.isHidden = true
         self.imageScnView?.postButton.isHidden = true
+        self.isReadyToHangTheObject = false
         
         hangTheImage()               // 이미지 걸고
         removeImageSceneObjects()    // 이미지 Scene 지우고
@@ -213,6 +213,10 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
     
     /// textField에 텍스트를 입력 중인 상태에서 키보드 Done키를 눌렀을 때 수행하는 메소드
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {  // 완료.
+        if textField.text == "" {
+            // TODO: 입력하라고 힌트 주기
+            return false
+        }
         
         self.textContent = textField.text!
         self.textNodeObject = SCNText(string: self.textContent, extrusionDepth: 1)
@@ -229,40 +233,41 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate, UITextFieldDel
         
         let scnNode = SCNNode(geometry: textNodeInScnNode)
         scnNode.name = "textNode"
-        scnNode.scale = self.initScale
-        scnNode.position = self.defaultPosition
+        scnNode.scale = self.defaultTextScale
+        scnNode.position = self.defaultTextPosition
         self.sceneView.pointOfView?.addChildNode(scnNode)
         
         return true
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        
         picker.dismiss(animated: true)
         if let uiImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+        
+            self.imageScnView?.selectOptionView.isHidden = true
+            self.imageScnView?.cancelButton.isHidden = false
+            self.imageScnView?.postButton.isHidden = false
+            
+            self.isReadyToHangTheObject = true
             self.sceneView.session.run(AppDelegate.configuration)
             self.imageContent = uiImage
             
+            // image를 담을 평면 생성
             let imagePlane = SCNPlane(width: self.sceneView.bounds.width/6000, height: sceneView.bounds.height/6000)
 //            let imagePlane = SCNPlane(width: 1, height: 1)
             imagePlane.firstMaterial?.diffuse.contents = uiImage
             imagePlane.firstMaterial?.lightingModel = .constant
+            // TODO: image를 y축을 180도 돌려서 같은 위치에 고정시키기( SCNPlane은 한쪽에서 밖에 안보이니까)
             
             self.imageNodeObject = imagePlane
-            
             let scnNode = SCNNode(geometry: imagePlane)
-            self.sceneView.scene.rootNode.addChildNode(scnNode)
-//            self.sceneView.pointOfView?.addChildNode(scnNode)
+            scnNode.worldPosition = SCNVector3(0, 0, -0.1)
+            self.sceneView.pointOfView?.addChildNode(scnNode)
             
-            var translation = matrix_identity_float4x4
-            translation.columns.3.z = -0.1
-            if let currentFrame = sceneView.session.currentFrame {
-                scnNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
-                
-            }
-            print("translation:\(translation)")
         }
     }
-    
 }
 
 /// Handler안에서의 로직 구현코드가 들어있음 - 위에는 주로 Handler메소드 구현
@@ -359,7 +364,7 @@ extension ARSceneViewController {
                 return
             }
             
-            textNode.scale = initScale
+            textNode.scale = defaultTextScale
             textNode.position = worldPosition
             textNode.orientation = cameraOrientation
             if let content = textContent {
@@ -383,16 +388,21 @@ extension ARSceneViewController {
             self.isReadyToHangTheObject = false
             
             let imageNode = SCNNode(geometry: imageNodeObject)
-            guard let world = (self.sceneView.pointOfView?.childNodes[0].worldPosition) else {
+            guard let worldPosition = (self.sceneView.pointOfView?.childNodes[0].worldPosition) else {
+                print("pointOfView의 childNodes가 없습니다.")
+                return
+            }
+            guard let cameraOrientation = (self.sceneView.pointOfView?.orientation) else {
                 print("pointOfView의 childNodes가 없습니다.")
                 return
             }
             
-//            imageNode.scale = initScale
-            imageNode.position = world
+            imageNode.scale = self.defaultImageScale
+            imageNode.position = worldPosition
+            imageNode.orientation = cameraOrientation
             
             if let content = imageContent {
-                imageContentsList.append(ImageVO(x: imageNode.worldPosition.x, y: imageNode.worldPosition.y, z: imageNode.worldPosition.z, imageContent: content))
+                imageContentsList.append(ImageVO(x: imageNode.worldPosition.x, y: imageNode.worldPosition.y, z: imageNode.worldPosition.z, orientationX: imageNode.orientation.x, orientationY: imageNode.worldPosition.y ,orientationZ: imageNode.worldPosition.z, imageContent: content))
             }
             
             /// 추가된 컨텐츠들 걸어놓기
@@ -401,9 +411,9 @@ extension ARSceneViewController {
                 node.removeFromParentNode()
             }
             
-            var translation = matrix_identity_float4x4
-            translation.columns.3.z = -0.6
-            imageNode.simdTransform = matrix_multiply(imageNode.simdTransform, translation)
+//            var translation = matrix_identity_float4x4
+//            translation.columns.3.z = -0.6
+//            imageNode.simdTransform = matrix_multiply(imageNode.simdTransform, translation)
             
         }
     }
@@ -415,7 +425,7 @@ extension ARSceneViewController {
         tNode.flatness = 0
         let textNode = SCNNode(geometry: tNode)
         textNode.name = "textNode"
-        textNode.scale = self.initScale
+        textNode.scale = self.defaultTextScale
         textNode.position = SCNVector3(option.x!, option.y!, option.z!)
         
         return textNode

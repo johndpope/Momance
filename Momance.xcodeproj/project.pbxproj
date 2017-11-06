@@ -41,7 +41,7 @@
 		CA5DA1F31F986BC30049D545 /* TextVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextVO.swift; sourceTree = "<group>"; };
 		CA7776501F9C2B7C00F5F90A /* TextScene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = TextScene.scn; sourceTree = "<group>"; };
 		CA7776551F9CC53200F5F90A /* ARBlueBottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARBlueBottomButton.swift; sourceTree = "<group>"; };
-		CA85BC211F949437004B3077 /* Trace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trace.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA85BC211F949437004B3077 /* Momance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Momance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA85BC241F949437004B3077 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA85BC261F949437004B3077 /* ARSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSceneViewController.swift; sourceTree = "<group>"; };
 		CA85BC291F949437004B3077 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		CA85BC221F949437004B3077 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CA85BC211F949437004B3077 /* Trace.app */,
+				CA85BC211F949437004B3077 /* Momance.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -196,9 +196,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CA85BC201F949437004B3077 /* Trace */ = {
+		CA85BC201F949437004B3077 /* Momance */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CA85BC361F949438004B3077 /* Build configuration list for PBXNativeTarget "Trace" */;
+			buildConfigurationList = CA85BC361F949438004B3077 /* Build configuration list for PBXNativeTarget "Momance" */;
 			buildPhases = (
 				09C61BFA0B862B3C222EFFEF /* [CP] Check Pods Manifest.lock */,
 				CA85BC1D1F949437004B3077 /* Sources */,
@@ -211,9 +211,9 @@
 			);
 			dependencies = (
 			);
-			name = Trace;
+			name = Momance;
 			productName = Trace;
-			productReference = CA85BC211F949437004B3077 /* Trace.app */;
+			productReference = CA85BC211F949437004B3077 /* Momance.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -232,7 +232,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CA85BC1C1F949437004B3077 /* Build configuration list for PBXProject "Trace" */;
+			buildConfigurationList = CA85BC1C1F949437004B3077 /* Build configuration list for PBXProject "Momance" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -245,7 +245,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CA85BC201F949437004B3077 /* Trace */,
+				CA85BC201F949437004B3077 /* Momance */,
 			);
 		};
 /* End PBXProject section */
@@ -510,7 +510,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CA85BC1C1F949437004B3077 /* Build configuration list for PBXProject "Trace" */ = {
+		CA85BC1C1F949437004B3077 /* Build configuration list for PBXProject "Momance" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CA85BC341F949438004B3077 /* Debug */,
@@ -519,7 +519,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CA85BC361F949438004B3077 /* Build configuration list for PBXNativeTarget "Trace" */ = {
+		CA85BC361F949438004B3077 /* Build configuration list for PBXNativeTarget "Momance" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CA85BC371F949438004B3077 /* Debug */,

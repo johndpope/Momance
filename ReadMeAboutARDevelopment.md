@@ -1,13 +1,13 @@
 # Momance 3D 개발 가이드
 
-## [ARKit Guideline] (https://developer.apple.com/ios/human-interface-guidelines/technologies/augmented-reality/)
+## [ARKit Guideline](https://developer.apple.com/ios/human-interface-guidelines/technologies/augmented-reality/)
 
-## [SceneKit] (https://developer.apple.com/documentation/scenekit) 정리
+## [SceneKit](https://developer.apple.com/documentation/scenekit) 정리
 3D오브젝트를 사용하기 위해, 프로그래밍 방식으로 붙이거나, 3D 툴을 사용해서 만든 파일을 노드에 불러오게하는 두 가지 방식이 있다.(두 방식을 결합할 수도 있다.)
 
 SceneKit은 Matrix를 사용하여 좌표 공간의 변화를 나타내며 3차원 공간에서 객체의 결합된 position(위치), rotation(회전), orientation(방향), scale(크기)를 나타낼 수 있다.
 
-### [SCNNode] (https://developer.apple.com/documentation/scenekit/scnnode)
+### [SCNNode](https://developer.apple.com/documentation/scenekit/scnnode)
 SCNNode객체는 렌더링 될 때 보이지 않는다. 부모 노드에 상대적인 좌표 공간만 나타낸다. 장면을 구성하려면 노드에 Geometry를 add해서 보이는 내용을 만들고 Node를 Scene에 추가해야 한다.
 
 rootNode객체는 SceneKit에 의해 렌더링 된 세계의 좌표계를 정의한다. rootNode에 추가하는 각 자식 노드는 고유한 좌표계를 만들고 차례대로 각자의 자식에 상속된다. 노드의 __위치__, __회전__ 및 __배율__ 특성을 사용하여 좌표계 간의 변환을 결정한다.
@@ -57,6 +57,7 @@ ex)
 C = TxRxS로 연산해야 한다.
 
 
+## [What is ARKit](https://pilgwon.github.io/blog/2017/08/27/Why-is-ARKit-better-than-the-alternatives.html)?
 
 
 

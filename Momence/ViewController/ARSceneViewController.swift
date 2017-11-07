@@ -44,6 +44,11 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
         case Display
     }
     
+    enum ImageMode {
+        case CameraCapture
+        case PhotoGallery
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,13 +99,17 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     /// ImageScene에서 capture버튼 눌렀을 때
     @objc func onCaptureButtonClickedInImageScene(_ sender: UIButton) {
         // 사진찍고 Post화면 띄우기
-        underImageCapturing(uiImage: sceneView.snapshot())
+        underImageCapturing(uiImage: sceneView.snapshot(), imageMode: .CameraCapture)
     }
     
     /// ImageScene에서 turnCamera버튼 눌렀을 때
     @objc func onTurnCameraButtonClickedInImageScene(_ sender: UIButton) {
         // 카메라 반전
-        print("onTurnCameraButtonClickedInImageScene")
+        
+        print("camera name: \(self.sceneView.pointOfView?.camera?.name)")
+        print("camera projectionTransform:\(self.sceneView.pointOfView?.camera?.projectionTransform)")
+        print("camera orthographicScale:\(self.sceneView.pointOfView?.camera?.orthographicScale)")
+        print("camera projectionDirection:\(self.sceneView.pointOfView?.camera?.projectionDirection)")
     }
     
     /// ImageScene에서 Cancel버튼 눌렀을 때
@@ -124,8 +133,6 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     
     /// 깊이 조절 slider bar event handler
     @objc func onDepthSliderValueChanged(_ sender: UISlider) {
-        
-//        self.textScnView?.onDepthValueChanged(sender)
         if self.isReadyToHangTheObject {
             if sender.value >= 10.0 {
                 sender.value = 10.0
@@ -140,13 +147,11 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
        
-//        if !isGalleryOn {
-            self.sceneView.session.run(AppDelegate.configuration)
-//        } else {    // 갤러리 땜에 다시 켜진거면 이쪽으로.
-//            self.isGalleryOn = false
-//        }
+        self.sceneView.session.run(ARWorldTrackingConfiguration())
         if isGalleryOn {
-            underImageCapturing(uiImage: imageContent!)
+            if let uiImage = imageContent {
+                underImageCapturing(uiImage: uiImage, imageMode: .PhotoGallery)
+            }
             isGalleryOn = false
         }
         
@@ -162,7 +167,6 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
         for obj in imageContentsList {
             self.sceneView.scene.rootNode.addChildNode(createNode(imageNodeOption: obj))
         }
-        print("viewWillAppear")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -234,14 +238,14 @@ extension ARSceneViewController: UITextFieldDelegate, UIImagePickerControllerDel
         if let uiImage = info[UIImagePickerControllerEditedImage] as? UIImage { // 이미지를 제대로 받아왔으면
             
 //            self.sceneView.session.run(AppDelegate.configuration)   // 이 메소드가 viewWillAppear보다 먼저 실행되서 여기서는 먼저 ARSCNView를 실행해야함
-//            underImageCapturing(uiImage: uiImage)
+
             imageContent = uiImage
             isGalleryOn = true
         }
         // picker 화면 없애고
         picker.dismiss(animated: true)
         
-        // TODO: 이미지 제대로 안왔다고 힌트 주기
+        // TODO: uiImage가 nil이면 이미지 제대로 안왔다고 힌트 주기
     }
 }
 
@@ -282,6 +286,7 @@ extension ARSceneViewController {
         self.mainScnView?.removeFromSuperview()
         self.imageScnView = (Bundle.main.loadNibNamed("UIImageSCNView", owner: self, options: nil)?[0] as! UIImageSCNView)
         self.sceneView.addSubview(self.imageScnView!)
+        self.imageScnView?.makeCornerRadius()    // 버튼들 corner를 둘글게
         
         self.imageScnView?.galleryButton.addTarget(self, action: #selector(onGalleryButtonClickedInImageScene(_:)), for: .touchUpInside)
         self.imageScnView?.captureButton.addTarget(self, action: #selector(onCaptureButtonClickedInImageScene(_:)), for: .touchUpInside)
@@ -291,7 +296,7 @@ extension ARSceneViewController {
         self.imageScnView?.depthSlider.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi/2))
         
         /// 슬라이더바 초기화
-        self.imageScnView?.isHidden = true
+        self.imageScnView?.depthSlider.isHidden = true
         self.imageScnView?.depthSlider.value = 0.0
         
         /// 슬라이더바 value change 관련 이벤트 핸들러 추가
@@ -417,12 +422,13 @@ extension ARSceneViewController {
     func showGallery() {
         let picker = UIImagePickerController()
         picker.delegate = self
-        picker.sourceType = .savedPhotosAlbum
+        picker.sourceType = .photoLibrary
         picker.allowsEditing = true
         self.present(picker, animated: true)
     }
     
-    func underImageCapturing(uiImage: UIImage) {
+    func underImageCapturing(uiImage: UIImage, imageMode: ImageMode) {
+        
         
         // button 셋팅
         self.imageScnView?.selectOptionView.isHidden = true
@@ -434,16 +440,29 @@ extension ARSceneViewController {
         self.isReadyToHangTheObject = true
         
         // image를 평면에 셋팅
-        let imagePlane = SCNPlane(width: self.sceneView.bounds.width/6000, height: sceneView.bounds.height/6000)
-        imagePlane.firstMaterial?.diffuse.contents = uiImage
-        imagePlane.firstMaterial?.lightingModel = .constant
+        let imagePlane = SCNPlane(width: self.sceneView.bounds.width/6000, height: sceneView.bounds.width/6000) // 얘는 정사각형으로 만들어야됨..
+        if imageMode == .CameraCapture {
+            imagePlane.width = self.sceneView.bounds.width / 6000
+            imagePlane.height = self.sceneView.bounds.height / 6000
+        }
         
+//        imagePlane.firstMaterial?.diffuse.contents = uiImage
+//        imagePlane.firstMaterial?.lightingModel = .constant
+       
+        let material = SCNMaterial()
+        material.isDoubleSided = true
+        material.diffuse.contents = uiImage
+        material.lightingModel = .constant
+        imagePlane.firstMaterial = material
+        imagePlane.cornerRadius = 2.0
         self.imageNodeObject = imagePlane   // 지금 등록한 오브젝트가 뭔지 잠시 저장
         
         let scnNode = SCNNode(geometry: imagePlane)
         scnNode.name = "imageNode"
         scnNode.scale = self.defaultImageScale
         scnNode.position = self.defaultImagePosition
+       
+        
         self.sceneView.pointOfView?.addChildNode(scnNode)
         
         // depthSlider가 작동하도록.
@@ -455,4 +474,7 @@ extension ARSceneViewController {
  xib 관련 개념 링크 - http://suho.berlin/engineering/ios/ios-storyboard-nibxib-code/
  
  */
+extension SCNNode: SCNBoundingVolume {
+    
+}
 

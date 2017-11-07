@@ -26,5 +26,11 @@ class UIImageSCNView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-
+    
+    func makeCornerRadius() {
+        self.galleryButton.layer.cornerRadius = 1.0
+        self.captureButton.layer.cornerRadius = 1.0
+        self.turnCameraButton.layer.cornerRadius = 1.0
+        
+    }
 }

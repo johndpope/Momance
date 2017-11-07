@@ -39,13 +39,6 @@ class ARTextViewController: UIViewController, UITextFieldDelegate, ARSCNViewDele
         self.sceneView.addGestureRecognizer(tapGesture)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
-        
-        self.sceneView.session.run(AppDelegate.configuration)
-    }
-    
     func restartSession() {
         self.sceneView.session.pause()
         self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in

@@ -16,10 +16,10 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var mainNavigationBar: UINavigationItem!
     
     var naviColor: UIColor? // 타이틀 컬러는 AR화면일 때, 투명으로 해주기 위한 변수
-    var currentScreenState = Mode.Display
+    var barButtonOption = BarButtonOption.MyPage
     let defaultTextScale = SCNVector3(0.005, 0.005, 0.005)
     let defaultTextPosition = SCNVector3(-0.14, -0.08, -0.6)
-    let defaultImageScale = SCNVector3(3.0, 3.0, 3.0)
+    let defaultImageScale = SCNVector3(3.5, 3.5, 3.5)
     let defaultImagePosition = SCNVector3(0.0, 0.0, -0.6)
     
     var isReadyToHangTheObject = false      // 지금 걸고 있는 화면인지 아닌지
@@ -38,10 +38,9 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     var textScnView: UITextSCNView?
     var imageScnView: UIImageSCNView?
     
-    enum Mode {
-        case Text
-        case Image
-        case Display
+    enum BarButtonOption {
+        case MyPage
+        case MainOptionBack
     }
     
     enum ImageMode {
@@ -58,6 +57,7 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
         // myPage로 이동하기
         myPageBarButton.target = self
         myPageBarButton.action = #selector(movePage(_:))
+
         
         // navigationbar 투명하게 만들기 (2줄)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -65,6 +65,27 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
         
         // UIMainSCNView.xib파일 불러오기
         createMainSceneObjects()
+    }
+    
+    @IBAction func objectsOnOffToggle(_ sender: UISwitch) {
+        if sender.isOn {
+            
+            /// 추가된 텍스트 컨텐츠들 걸어 놓기.
+            for obj in textContentsList {
+                self.sceneView.scene.rootNode.addChildNode(createNode(textNodeOption: obj))
+            }
+            
+            /// TODO: 다시키면 이미지가 추가 안됨..
+            /// 추가된 이미지 컨텐츠들 걸어 놓기.
+            for obj in imageContentsList {
+                self.sceneView.scene.rootNode.addChildNode(createNode(imageNodeOption: obj))
+            }
+        } else {
+            
+            self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
+                node.removeFromParentNode()
+            }
+        }
     }
     
     /// MainScene에서 Text버튼 눌렀을 때
@@ -80,6 +101,7 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     @objc func onCancelButtonClickedInTextScene(_ sender: UIButton) {
         // TODO: textField, slider 초기화 - textFieldShouldReturn에서 해준거 반대로
         recreateTextScene()
+        barButtonOption = .MyPage
         // TOKNOW: textScnView를 deallocate 해줘야 메모리에서 해제될까??
     }
     /// TextScene에서 Post버튼 눌렀을 때
@@ -115,7 +137,6 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     /// ImageScene에서 Cancel버튼 눌렀을 때
     @objc func onCancelButtonClickedInImageScene(_ sender: UIButton) {
         recreateImageScene()        // 이미지 뷰 재생성
-        self.isReadyToHangTheObject = false
     }
     
     /// ImageScene에서 Post버튼 눌렀을 때
@@ -148,6 +169,8 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
        
         self.sceneView.session.run(ARWorldTrackingConfiguration())
+        
+        print("viewWillAppear")
         if isGalleryOn {
             if let uiImage = imageContent {
                 underImageCapturing(uiImage: uiImage, imageMode: .PhotoGallery)
@@ -178,12 +201,17 @@ class ARSceneViewController: UIViewController, ARSCNViewDelegate {
     }
 
     /// myPage로 이동하는 세그웨이 구현 메소드
-    @objc func movePage(_ sender: Any) {
+    @objc func movePage(_ sender: UIBarButtonItem) {
         
-        if sender is UIBarButtonItem {
+        if barButtonOption == .MyPage {
             let segueName = "segueMyPage"
             self.performSegue(withIdentifier: segueName, sender: self)
+        } else {    // 뒤로가기 눌렀을 때,
+            UIView.animate(withDuration: 0.5) {
+                sender.image?.ciImage?.transformed(by: CGAffineTransform(rotationAngle: CGFloat.pi))
+            }
         }
+        
     }
     
     /// deprecated
@@ -322,6 +350,11 @@ extension ARSceneViewController {
     }
     
     func recreateImageScene() {
+        self.imageScnView?.selectOptionView.isHidden = false
+        self.imageScnView?.cancelButton.isHidden = true
+        self.imageScnView?.postButton.isHidden = true
+        self.imageScnView?.depthSlider.isHidden = true
+        
         self.isReadyToHangTheObject = false
         self.imageScnView?.depthSlider.value = 0.0
         self.sceneView.pointOfView?.enumerateChildNodes { (node, _) in
@@ -427,8 +460,10 @@ extension ARSceneViewController {
         self.present(picker, animated: true)
     }
     
+    /// uiImage: 사진찍거나, 갤러리에서 가져온 사진의 UIImage 타입, imageMode: 갤러리로 가져온건지, 사진 캡쳐찍은건지
     func underImageCapturing(uiImage: UIImage, imageMode: ImageMode) {
         
+        print("underImageCapturing")
         
         // button 셋팅
         self.imageScnView?.selectOptionView.isHidden = true
@@ -444,17 +479,18 @@ extension ARSceneViewController {
         if imageMode == .CameraCapture {
             imagePlane.width = self.sceneView.bounds.width / 6000
             imagePlane.height = self.sceneView.bounds.height / 6000
+        } else {
+            
         }
         
-//        imagePlane.firstMaterial?.diffuse.contents = uiImage
-//        imagePlane.firstMaterial?.lightingModel = .constant
-       
+               
         let material = SCNMaterial()
         material.isDoubleSided = true
         material.diffuse.contents = uiImage
         material.lightingModel = .constant
+        material.diffuse.borderColor = UIColor.red.cgColor
         imagePlane.firstMaterial = material
-        imagePlane.cornerRadius = 2.0
+//        imagePlane.cornerRadius = 0.5
         self.imageNodeObject = imagePlane   // 지금 등록한 오브젝트가 뭔지 잠시 저장
         
         let scnNode = SCNNode(geometry: imagePlane)
@@ -474,7 +510,4 @@ extension ARSceneViewController {
  xib 관련 개념 링크 - http://suho.berlin/engineering/ios/ios-storyboard-nibxib-code/
  
  */
-extension SCNNode: SCNBoundingVolume {
-    
-}
 

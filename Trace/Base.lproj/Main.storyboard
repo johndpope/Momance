@@ -13,22 +13,115 @@
         <!--LoginViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="LoginViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="Momance" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="LoginViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="Momence" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" userLabel="Login">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YvU-GQ-gYD">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFW-lu-JhY">
+                                <rect key="frame" x="7" y="8" width="359" height="651"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Sv-wv-das" customClass="ARBlueBottomButton" customModule="Momence" customModuleProvider="target">
+                                        <rect key="frame" x="50" y="558" width="119" height="43"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="43" id="Zru-Np-Lh3"/>
+                                        </constraints>
+                                        <state key="normal" title="Login">
+                                            <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kha-b9-r3a" customClass="ARBlueBottomButton" customModule="Momence" customModuleProvider="target">
+                                        <rect key="frame" x="190" y="558" width="119" height="43"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="43" id="Hom-Xu-D8C"/>
+                                        </constraints>
+                                        <state key="normal" title="Forgot ID/PW">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="MfR-xj-47Y">
+                                        <rect key="frame" x="50" y="398" width="259" height="60"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="606-WF-lML">
+                                                <rect key="frame" x="0.0" y="0.0" width="259" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Al2-mD-cKH">
+                                                <rect key="frame" x="0.0" y="30" width="259" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="606-WF-lML" firstAttribute="top" secondItem="MfR-xj-47Y" secondAttribute="top" id="1cZ-5x-REk"/>
+                                            <constraint firstAttribute="trailing" secondItem="Al2-mD-cKH" secondAttribute="trailing" id="4XJ-sM-qJ4"/>
+                                            <constraint firstItem="Al2-mD-cKH" firstAttribute="leading" secondItem="MfR-xj-47Y" secondAttribute="leading" id="AMI-I3-Mtr"/>
+                                            <constraint firstItem="Al2-mD-cKH" firstAttribute="top" secondItem="606-WF-lML" secondAttribute="bottom" id="EKV-pI-h1i"/>
+                                            <constraint firstItem="Al2-mD-cKH" firstAttribute="top" secondItem="606-WF-lML" secondAttribute="bottom" id="Etx-8X-40F"/>
+                                            <constraint firstItem="606-WF-lML" firstAttribute="leading" secondItem="MfR-xj-47Y" secondAttribute="leading" id="dNG-Gw-DBZ"/>
+                                            <constraint firstAttribute="bottom" secondItem="Al2-mD-cKH" secondAttribute="bottom" id="fLj-Sl-t50"/>
+                                            <constraint firstAttribute="trailing" secondItem="606-WF-lML" secondAttribute="trailing" id="sM6-7c-8W0"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZF-KE-O1v" customClass="ARBlueBottomButton" customModule="Momence" customModuleProvider="target">
+                                        <rect key="frame" x="50" y="150" width="259" height="43"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="43" id="05b-z8-7XN"/>
+                                        </constraints>
+                                        <state key="normal" title="Create an account">
+                                            <color key="titleColor" red="0.98043375119999998" green="0.99942404029999998" blue="0.98399972270000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.72803403253424659" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="SZF-KE-O1v" firstAttribute="leading" secondItem="vFW-lu-JhY" secondAttribute="leading" constant="50" id="5vr-Bu-Ttj"/>
+                                    <constraint firstItem="Kha-b9-r3a" firstAttribute="width" secondItem="0Sv-wv-das" secondAttribute="width" id="95K-Lv-hUG"/>
+                                    <constraint firstItem="Kha-b9-r3a" firstAttribute="leading" secondItem="0Sv-wv-das" secondAttribute="trailing" constant="21" id="EgN-h4-aFn"/>
+                                    <constraint firstItem="MfR-xj-47Y" firstAttribute="leading" secondItem="vFW-lu-JhY" secondAttribute="leading" constant="50" id="Jxo-O6-8va"/>
+                                    <constraint firstAttribute="bottom" secondItem="0Sv-wv-das" secondAttribute="bottom" constant="50" id="Oc6-Xm-Ftl"/>
+                                    <constraint firstAttribute="bottom" secondItem="Kha-b9-r3a" secondAttribute="bottom" constant="50" id="RcY-BC-P5M"/>
+                                    <constraint firstItem="SZF-KE-O1v" firstAttribute="top" secondItem="vFW-lu-JhY" secondAttribute="top" constant="150" id="YKp-UP-rQC"/>
+                                    <constraint firstAttribute="trailing" secondItem="SZF-KE-O1v" secondAttribute="trailing" constant="50" id="a0u-Gc-6zn"/>
+                                    <constraint firstItem="0Sv-wv-das" firstAttribute="top" secondItem="MfR-xj-47Y" secondAttribute="bottom" constant="100" id="bcd-Yb-qm8"/>
+                                    <constraint firstAttribute="trailing" secondItem="MfR-xj-47Y" secondAttribute="trailing" constant="50" id="bex-KC-LQH"/>
+                                    <constraint firstItem="0Sv-wv-das" firstAttribute="leading" secondItem="vFW-lu-JhY" secondAttribute="leading" constant="50" id="ucg-gX-ESZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kha-b9-r3a" secondAttribute="trailing" constant="50" id="xsY-Hi-1m8"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="YvU-GQ-gYD" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="3sn-XJ-aGj"/>
+                            <constraint firstItem="vFW-lu-JhY" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="8" id="Pbv-j3-HMA"/>
+                            <constraint firstItem="YvU-GQ-gYD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QKw-Fk-9ii"/>
+                            <constraint firstItem="vFW-lu-JhY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="7" id="YL7-su-mg1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vFW-lu-JhY" secondAttribute="bottom" constant="8" id="bDM-MQ-Yvp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YvU-GQ-gYD" secondAttribute="trailing" id="k65-kA-ITz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vFW-lu-JhY" secondAttribute="trailing" constant="9" id="lnQ-gP-Vuy"/>
+                            <constraint firstItem="YvU-GQ-gYD" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="s64-MX-cTV"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-826" y="1011"/>
+            <point key="canvasLocation" x="-826.39999999999998" y="1010.6446776611695"/>
         </scene>
         <!--Scene View Controller-->
         <scene sceneID="aVu-xe-M6D">
             <objects>
-                <viewController id="67y-57-aqJ" customClass="ARSceneViewController" customModule="Momance" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="67y-57-aqJ" customClass="ARSceneViewController" customModule="Momence" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bk5-i8-eji">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -51,11 +144,16 @@
                             <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="kiR-qs-VCE">
                                 <rect key="frame" x="16" y="6.5" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="onTintColor" red="1" green="0.19827008930000001" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                <color key="onTintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="objectsOnOffToggle:" destination="67y-57-aqJ" eventType="valueChanged" id="22U-3R-1k6"/>
+                                </connections>
                             </switch>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="forward-btn" style="done" id="Bvr-du-9u3"/>
+                        <barButtonItem key="rightBarButtonItem" image="forward-btn" style="done" id="Bvr-du-9u3">
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mainNavigationBar" destination="Fw1-ab-bDz" id="78Y-lK-pwf"/>
@@ -71,7 +169,7 @@
         <!--ARText-->
         <scene sceneID="FIp-0C-09k">
             <objects>
-                <viewController id="QiN-2q-3fb" userLabel="ARText" customClass="ARTextViewController" customModule="Momance" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QiN-2q-3fb" userLabel="ARText" customClass="ARTextViewController" customModule="Momence" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hxf-Vw-qWi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -93,7 +191,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZh-9Y-YWs" customClass="ARBlueBottomButton" customModule="Momance" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZh-9Y-YWs" customClass="ARBlueBottomButton" customModule="Momence" customModuleProvider="target">
                                 <rect key="frame" x="50" y="574" width="127" height="43"/>
                                 <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -106,7 +204,7 @@
                                     <action selector="onCancelClicked:" destination="QiN-2q-3fb" eventType="touchUpInside" id="4jl-Lz-aiS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-4I-6xq" customClass="ARBlueBottomButton" customModule="Momance" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-4I-6xq" customClass="ARBlueBottomButton" customModule="Momence" customModuleProvider="target">
                                 <rect key="frame" x="198" y="574" width="127" height="43"/>
                                 <color key="backgroundColor" red="0.27058823529999998" green="0.72156862749999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -174,7 +272,7 @@
         <!--ARImage-->
         <scene sceneID="TmU-eH-d4a">
             <objects>
-                <viewController id="GnG-ye-wcW" userLabel="ARImage" customClass="ARImageViewController" customModule="Momance" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="GnG-ye-wcW" userLabel="ARImage" customClass="ARImageViewController" customModule="Momence" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BOK-PH-ahG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -195,26 +293,55 @@
             </objects>
             <point key="canvasLocation" x="-74.400000000000006" y="2660.4197901049479"/>
         </scene>
-        <!--My Page View Controller-->
+        <!--MY PAGE-->
         <scene sceneID="oHX-NX-TCs">
             <objects>
-                <viewController storyboardIdentifier="my_page" id="R0M-RY-bpZ" customClass="MyPageViewController" customModule="Momance" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="my_page" id="R0M-RY-bpZ" customClass="MyPageViewController" customModule="Momence" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="93P-I6-Twc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bfO-jq-3wk" customClass="CustomSegmentedControl" customModule="Momance" customModuleProvider="target">
-                                <rect key="frame" x="16" y="72" width="343" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
-                                </segments>
-                            </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="38A-zC-PBN">
+                                <rect key="frame" x="0.0" y="64" width="375" height="42"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0U6-vo-LWR">
+                                        <rect key="frame" x="8" y="8" width="359" height="27"/>
+                                        <segments>
+                                            <segment title="MY PAGE"/>
+                                            <segment title="PEOPLE"/>
+                                        </segments>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="0U6-vo-LWR" secondAttribute="trailing" constant="8" id="THm-3U-Jay"/>
+                                    <constraint firstItem="0U6-vo-LWR" firstAttribute="top" secondItem="38A-zC-PBN" secondAttribute="top" constant="8" id="TvF-vZ-hss"/>
+                                    <constraint firstAttribute="height" constant="42" id="sNV-La-XMg"/>
+                                    <constraint firstAttribute="bottom" secondItem="0U6-vo-LWR" secondAttribute="bottom" constant="8" id="u40-xy-9Ze"/>
+                                    <constraint firstItem="0U6-vo-LWR" firstAttribute="leading" secondItem="38A-zC-PBN" secondAttribute="leading" constant="8" id="zIo-Ko-KGn"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uii-Tu-rID">
+                                <rect key="frame" x="0.0" y="106" width="375" height="561"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vCe-kS-oeP" firstAttribute="trailing" secondItem="uii-Tu-rID" secondAttribute="trailing" id="4iy-2s-gG8"/>
+                            <constraint firstItem="vCe-kS-oeP" firstAttribute="bottom" secondItem="uii-Tu-rID" secondAttribute="bottom" id="Ed3-Ww-fg0"/>
+                            <constraint firstItem="uii-Tu-rID" firstAttribute="leading" secondItem="vCe-kS-oeP" secondAttribute="leading" id="EsG-d7-abh"/>
+                            <constraint firstItem="38A-zC-PBN" firstAttribute="top" secondItem="vCe-kS-oeP" secondAttribute="top" id="JHs-NE-QPY"/>
+                            <constraint firstItem="vCe-kS-oeP" firstAttribute="trailing" secondItem="38A-zC-PBN" secondAttribute="trailing" id="LUd-3c-xPb"/>
+                            <constraint firstItem="38A-zC-PBN" firstAttribute="leading" secondItem="vCe-kS-oeP" secondAttribute="leading" id="Obh-F4-7al"/>
+                            <constraint firstItem="uii-Tu-rID" firstAttribute="top" secondItem="38A-zC-PBN" secondAttribute="bottom" id="ipl-FT-CJ9"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vCe-kS-oeP"/>
                     </view>
+                    <navigationItem key="navigationItem" title="MY PAGE" id="Paj-Fk-XZZ">
+                        <barButtonItem key="rightBarButtonItem" title="Setting" id="tCF-9l-IdU"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oTx-dN-vqo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -255,10 +382,20 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="11S-Mu-xsh" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fRE-pU-TTn">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="fRE-pU-TTn">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.27058823529411763" green="0.72156862745098038" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -272,7 +409,7 @@
         <!--ARImage-->
         <scene sceneID="glK-UZ-IV0">
             <objects>
-                <viewController title="ARImageViewController" id="abb-EM-aSl" userLabel="ARImage" customClass="ARImageViewController" customModule="Momance" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="ARImageViewController" id="abb-EM-aSl" userLabel="ARImage" customClass="ARImageViewController" customModule="Momence" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eRp-3s-Ukf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
